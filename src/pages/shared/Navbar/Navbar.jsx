@@ -35,6 +35,16 @@ const Navbar = () => {
           Teach on Mentorium
         </NavLink>
       </li>
+      <li>
+        <NavLink 
+          to="/dashboard"
+          className={({ isActive }) => 
+            isActive ? "text-primary font-bold" : ""
+          }
+        >
+          Dashboard
+        </NavLink>
+      </li>
     </>
   );
 
