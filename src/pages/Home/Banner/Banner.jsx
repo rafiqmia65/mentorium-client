@@ -4,8 +4,8 @@ import fallbackImage from "../../../assets/banner/banner.json"; // Add a fallbac
 
 const Banner = () => {
   return (
-    <div className="min-h-screen bg-neutral flex items-center">
-      <div className="container mx-auto px-4 lg:px-0 flex flex-col-reverse pt-16 pb-10 lg:flex-row items-center gap-10">
+    <div className="min-h-[50vh] bg-neutral pt-16 pb-5 flex items-center">
+      <div className="container mx-auto px-4 lg:px-0 flex flex-col-reverse lg:flex-row items-center gap-10">
         {/* Left Content */}
         <div className="flex-1 text-center lg:text-left">
           <h1 className="text-5xl lg:text-6xl font-bold text-text mb-6">
