@@ -1,8 +1,8 @@
 import { Link, NavLink, useNavigate } from "react-router";
 import DarkLightMode from "./DarkLightMode/DarkLightMode";
-import logo from "../../../assets/logo.png";
 import useAuth from "../../../Hook/useAuth";
 import Swal from "sweetalert2";
+import MentoriumLogo from "../MentoriumLogo/MentoriumLogo";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
@@ -62,16 +62,18 @@ const Navbar = () => {
           Teach on Mentorium
         </NavLink>
       </li>
-      <li>
-        <NavLink
-          to="/dashboard"
-          className={({ isActive }) =>
-            isActive ? "text-primary font-bold" : ""
-          }
-        >
-          Dashboard
-        </NavLink>
-      </li>
+      {user && (
+        <li>
+          <NavLink
+            to="/dashboard"
+            className={({ isActive }) =>
+              isActive ? "text-primary font-bold" : ""
+            }
+          >
+            Dashboard
+          </NavLink>
+        </li>
+      )}
     </>
   );
 
@@ -109,16 +111,7 @@ const Navbar = () => {
                 {links}
               </ul>
             </div>
-            <div className="flex items-end gap-2">
-              <img
-                src={logo}
-                className="w-8 h-8 object-contain"
-                alt="Mentorium"
-              />
-              <h3 className="text-2xl font-bold leading-tight text-primary">
-                Mentorium
-              </h3>
-            </div>
+            <MentoriumLogo></MentoriumLogo>
           </div>
 
           {/* Navbar Center (Desktop Menu) */}

@@ -6,7 +6,7 @@ import {
   FaInstagram,
 } from "react-icons/fa";
 import { NavLink } from "react-router";
-import logo from "../../../assets/logo.png";
+import MentoriumLogo from "../MentoriumLogo/MentoriumLogo";
 
 const Footer = () => {
   const links = (
@@ -49,16 +49,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
         {/* Logo & Description */}
         <div>
-          <div className="flex items-end gap-2">
-            <img
-              src={logo}
-              className="w-12 h-10 object-contain"
-              alt="Mentorium"
-            />
-            <h3 className="text-3xl font-bold leading-tight text-primary">
-              Mentorium
-            </h3>
-          </div>
+          <MentoriumLogo></MentoriumLogo>
           <p className="text-sm text-text mt-3">
             Empowering your learning journey with expert instructors and
             flexible courses.
@@ -138,7 +129,9 @@ const Footer = () => {
 
       {/* Copyright */}
       <div className="text-center text-text-secondary text-sm mt-10">
-        &copy; {new Date().getFullYear()} <span className="text-primary font-medium">Mentorium</span>. All rights reserved.
+        &copy; {new Date().getFullYear()}{" "}
+        <span className="text-primary font-medium">Mentorium</span>. All rights
+        reserved.
       </div>
     </footer>
   );
