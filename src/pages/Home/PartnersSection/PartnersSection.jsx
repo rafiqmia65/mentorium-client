@@ -23,7 +23,7 @@ const PartnersSection = () => {
   ];
 
   return (
-    <section className="py-16 px-4 bg-neutral overflow-hidden">
+    <section className="py-16 px-4 bg-base-100 overflow-hidden">
       <div className="max-w-5xl mx-auto text-center">
         <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
           Our Global Partners

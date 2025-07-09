@@ -16,7 +16,7 @@
   --color-error: #f87272;
   --color-text: #1e2939;
   --color-text-secondary: #475569; /* Soft Gray */
-  --color-button-hover: #004fcc; /* Slightly darker blue */
+  --color-primary-content: #0b3fb1; 
 }
 
 @plugin "daisyui/theme" {
@@ -32,7 +32,7 @@
   --color-warning: #fbbd23;
   --color-error: #f87272;
   --color-text: #f3f4f6; /* Light Gray for Text */
-  --color-button-hover: #00a6cc; /* Darker Aqua */
+  --color-primary-content: #00a6cc; /* Darker Aqua */
 }
 
 * {

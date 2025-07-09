@@ -1,14 +1,41 @@
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import DarkLightMode from "./DarkLightMode/DarkLightMode";
 import logo from "../../../assets/logo.png";
+import useAuth from "../../../Hook/useAuth";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
+  const { user, logOut } = useAuth();
+
+  const navigate = useNavigate();
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {
+        Swal.fire({
+          title: `You are successfully LogOut`,
+          text: "You clicked the button!",
+          icon: "success",
+        });
+        navigate("/");
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: errorMessage,
+          footer: '<a href="#">Why do I have this issue?</a>',
+        });
+      });
+  };
+
   const links = (
     <>
       <li>
-        <NavLink 
-          to="/" 
-          className={({ isActive }) => 
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
             isActive ? "text-primary font-bold" : ""
           }
         >
@@ -16,9 +43,9 @@ const Navbar = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink 
+        <NavLink
           to="/allClasses"
-          className={({ isActive }) => 
+          className={({ isActive }) =>
             isActive ? "text-primary font-bold" : ""
           }
         >
@@ -26,9 +53,9 @@ const Navbar = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink 
+        <NavLink
           to="/teach"
-          className={({ isActive }) => 
+          className={({ isActive }) =>
             isActive ? "text-primary font-bold" : ""
           }
         >
@@ -36,9 +63,9 @@ const Navbar = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink 
+        <NavLink
           to="/dashboard"
-          className={({ isActive }) => 
+          className={({ isActive }) =>
             isActive ? "text-primary font-bold" : ""
           }
         >
@@ -55,7 +82,11 @@ const Navbar = () => {
           {/* Navbar Start */}
           <div className="navbar-start">
             <div className="dropdown">
-              <div tabIndex={0} role="button" className="btn btn-ghost mr-2 lg:hidden">
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost mr-2 lg:hidden"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-5 w-5"
@@ -79,7 +110,11 @@ const Navbar = () => {
               </ul>
             </div>
             <div className="flex items-end gap-2">
-              <img src={logo} className="w-8 h-8 object-contain" alt="Mentorium" />
+              <img
+                src={logo}
+                className="w-8 h-8 object-contain"
+                alt="Mentorium"
+              />
               <h3 className="text-2xl font-bold leading-tight text-primary">
                 Mentorium
               </h3>
@@ -96,6 +131,42 @@ const Navbar = () => {
           {/* Navbar End */}
           <div className="navbar-end gap-2">
             <DarkLightMode />
+            {user ? (
+              <div className="dropdown dropdown-end">
+                <div
+                  tabIndex={0}
+                  role="button"
+                  className="btn btn-ghost btn-circle avatar"
+                >
+                  <div className="w-10 rounded-full border-2 border-primary-content">
+                    <img src={user.photoURL || "/avatar.png"} alt="User" />
+                  </div>
+                </div>
+                <ul
+                  tabIndex={0}
+                  className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+                >
+                  <li className="text-center font-semibold text-lg pointer-events-none text-primary">
+                    {user.displayName || "User"}
+                  </li>
+                  <li>
+                    <Link to="/dashboard">Dashboard</Link>
+                  </li>
+                  <li>
+                    <button onClick={handleLogOut}>Logout</button>
+                  </li>
+                </ul>
+              </div>
+            ) : (
+              <>
+                <Link className="btn bg-primary text-white" to="/login">
+                  Login
+                </Link>
+                <Link className="btn bg-secondary text-white" to="/signUP">
+                  Sign Up
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </div>

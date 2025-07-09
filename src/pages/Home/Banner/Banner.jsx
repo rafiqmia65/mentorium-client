@@ -1,6 +1,6 @@
 import React from "react";
 import Lottie from "lottie-react";
-import fallbackImage from "../../../assets/banner/banner.json"; // Add a fallback image
+import fallbackImage from "../../../assets/banner/banner.json";
 
 const Banner = () => {
   return (
@@ -17,10 +17,10 @@ const Banner = () => {
             our expert-led courses.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-            <button className="btn bg-primary text-white px-6 py-3 rounded-lg hover:bg-button-hover">
+            <button className="btn bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary-content">
               Get Started
             </button>
-            <button className="btn  border border-primary text-button-hover px-6 py-3 rounded-lg hover:bg-primary hover:text-white">
+            <button className="btn  border border-primary text-button-hover px-6 py-3 rounded-lg hover:bg-primary-content hover:text-white">
               Learn More
             </button>
           </div>
@@ -28,10 +28,7 @@ const Banner = () => {
 
         {/* Right Image */}
         <div className="flex-1">
-          <Lottie
-            animationData={fallbackImage}
-            loop={true}
-          />
+          <Lottie animationData={fallbackImage} loop={true} />
         </div>
       </div>
     </div>
