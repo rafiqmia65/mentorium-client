@@ -5,8 +5,10 @@ import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import Login from "../pages/Login/Login";
 import SignUp from "../pages/SignUp/SignUp";
 import DashboardLayouts from "../Layouts/DashboardLayouts";
-import PrivateRoutes from "../routes/PrivateRoutes"
+import PrivateRoutes from "../routes/PrivateRoutes";
 import TeachOnMentorium from "../pages/TeachOnMentorium/TeachOnMentorium";
+import AdminRoutes from "./AdminRoutes";
+import TeacherRequest from "../pages/TeacherRequest/TeacherRequest";
 
 export const router = createBrowserRouter([
   {
@@ -28,12 +30,31 @@ export const router = createBrowserRouter([
       },
       {
         path: "teach",
-        element: <PrivateRoutes><TeachOnMentorium></TeachOnMentorium></PrivateRoutes>
-      }
+        element: (
+          <PrivateRoutes>
+            <TeachOnMentorium></TeachOnMentorium>
+          </PrivateRoutes>
+        ),
+      },
     ],
   },
   {
     path: "dashboard",
-    element: <PrivateRoutes><DashboardLayouts></DashboardLayouts></PrivateRoutes>,
+    element: (
+      <PrivateRoutes>
+        <DashboardLayouts></DashboardLayouts>
+      </PrivateRoutes>
+    ),
+    children: [
+      // Only Admin Access Routes
+      {
+        path: "teacherRequest",
+        element: (
+          <AdminRoutes>
+            <TeacherRequest></TeacherRequest>
+          </AdminRoutes>
+        ),
+      },
+    ],
   },
 ]);

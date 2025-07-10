@@ -47,7 +47,7 @@ const DashboardLayouts = () => {
         <>
           <li>
             <NavLink
-              to="/dashboard/teacher-request"
+              to="/dashboard/teacherRequest"
               className={({ isActive }) =>
                 `hover:text-primary ${isActive ? "text-primary font-bold" : ""}`
               }
@@ -67,7 +67,7 @@ const DashboardLayouts = () => {
           </li>
           <li>
             <NavLink
-              to="/dashboard/all-classes"
+              to="/dashboard/allClasses"
               className={({ isActive }) =>
                 `hover:text-primary ${isActive ? "text-primary font-bold" : ""}`
               }
@@ -174,7 +174,7 @@ const DashboardLayouts = () => {
       </div>
 
       {/* Main Content */}
-      <main className="flex-1 p-4 lg:ml-64 mt-16 lg:mt-0">
+      <main className="flex-1 mt-16 lg:mt-0 h-screen overflow-x-auto">
         <Outlet />
       </main>
     </div>
