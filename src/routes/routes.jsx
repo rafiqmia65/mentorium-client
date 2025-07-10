@@ -8,7 +8,8 @@ import DashboardLayouts from "../Layouts/DashboardLayouts";
 import PrivateRoutes from "../routes/PrivateRoutes";
 import TeachOnMentorium from "../pages/TeachOnMentorium/TeachOnMentorium";
 import AdminRoutes from "./AdminRoutes";
-import TeacherRequest from "../pages/TeacherRequest/TeacherRequest";
+import TeacherRequest from "../pages/Dashboard/AdminPages/TeacherRequest/TeacherRequest";
+import Users from "../pages/Dashboard/AdminPages/Users/Users";
 
 export const router = createBrowserRouter([
   {
@@ -52,6 +53,14 @@ export const router = createBrowserRouter([
         element: (
           <AdminRoutes>
             <TeacherRequest></TeacherRequest>
+          </AdminRoutes>
+        ),
+      },
+      {
+        path: "users",
+        element: (
+          <AdminRoutes>
+            <Users></Users>
           </AdminRoutes>
         ),
       },

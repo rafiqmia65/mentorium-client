@@ -1,8 +1,8 @@
 import React from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import Swal from "sweetalert2";
-import useAxiosSecure from "../../Hook/useAxiosSecure";
-import Loader from "../Loader/Loader";
+import useAxiosSecure from "../../../../Hook/useAxiosSecure";
+import Loader from "../../../Loader/Loader";
 
 const TeacherRequest = () => {
   const axiosSecure = useAxiosSecure();
@@ -146,11 +146,12 @@ const TeacherRequest = () => {
           Manage Teacher Requests ({teacherRequests.length})
         </h2>
 
+
         {/* ✅ Horizontal Scroll Wrapper */}
         <div className="w-full overflow-x-auto rounded-lg">
           <table className="w-full min-w-[900px] text-left text-sm">
-            <thead>
-              <tr className="bg-secondary text-gray-700">
+            <thead className="bg-secondary text-gray-700">
+              <tr>
                 <th className="py-2 px-3 min-w-[120px]">Name</th>
                 <th className="py-2 px-3 min-w-[100px]">Image</th>
                 <th className="py-2 px-3 min-w-[120px]">Experience</th>
@@ -160,11 +161,11 @@ const TeacherRequest = () => {
                 <th className="py-2 px-3 min-w-[160px] text-center">Actions</th>
               </tr>
             </thead>
-            <tbody className="">
+            <tbody className="bg-primary text-white">
               {teacherRequests.map((request) => (
                 <tr
                   key={request._id}
-                  className="border-b border-secondary transition-all"
+                  className="border-b border-secondary hover:bg-primary-content transition-all"
                 >
                   <td className="py-3 px-3 truncate">{request.name}</td>
                   <td className="py-3 px-3">
@@ -176,6 +177,7 @@ const TeacherRequest = () => {
                             "https://placehold.co/100x100/aabbcc/ffffff?text=No+Img"
                           }
                           alt={request.name}
+                          className="bg-accent p-1 shadow"
                           onError={(e) => {
                             e.target.onerror = null;
                             e.target.src =
