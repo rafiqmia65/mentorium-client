@@ -37,7 +37,7 @@ const AddClass = () => {
     onSuccess: (res) => {
       if (res.success) {
         Swal.fire("Success!", "Class added successfully.", "success");
-        navigate("/dashboard/my-classes");
+        navigate("/dashboard/myClass");
       } else {
         Swal.fire("Failed", "Could not add class.", "error");
       }

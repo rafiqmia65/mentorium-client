@@ -1,0 +1,186 @@
+import React, { useState } from "react";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router";
+import Swal from "sweetalert2";
+import useAuth from "../../../../Hook/useAuth";
+import useAxiosSecure from "../../../../Hook/useAxiosSecure";
+import Loader from "../../../Loader/Loader";
+import UpdateClassModal from "./UpdateClassModal/UpdateClassModal";
+
+const MyClasses = () => {
+  const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
+
+  const [selectedClass, setSelectedClass] = useState(null);
+  const [updatedData, setUpdatedData] = useState({});
+
+  // Fetch My Classes
+  const {
+    data: myClasses = [],
+    isLoading,
+    isError,
+    error,
+    refetch,
+  } = useQuery({
+    queryKey: ["myClasses", user?.email],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/my-classes?email=${user?.email}`);
+      return res.data.data;
+    },
+    enabled: !!user?.email,
+  });
+
+  // Update Mutation
+  const updateClassMutation = useMutation({
+    mutationFn: async ({ id, data }) => {
+      if (!data.title || !data.price || !data.description || !data.image) {
+        throw new Error("Please fill all fields and upload an image.");
+      }
+      const res = await axiosSecure.patch(`/my-classes/${id}`, data);
+      return res.data;
+    },
+    onSuccess: () => {
+      Swal.fire("Updated!", "Class updated successfully.", "success");
+      setSelectedClass(null);
+      refetch();
+    },
+    onError: (error) => {
+      Swal.fire("Error!", error.message || "Failed to update class.", "error");
+    },
+  });
+
+  // Delete Mutation
+  const deleteClassMutation = useMutation({
+    mutationFn: async (id) => {
+      const res = await axiosSecure.delete(`/my-classes/${id}`);
+      return res.data;
+    },
+    onSuccess: () => {
+      Swal.fire("Deleted!", "Class has been deleted.", "success");
+      refetch();
+    },
+    onError: () => {
+      Swal.fire("Error!", "Failed to delete class.", "error");
+    },
+  });
+
+  const handleUpdateSubmit = (e) => {
+    e.preventDefault();
+    if (!selectedClass) return;
+
+    updateClassMutation.mutate({ id: selectedClass._id, data: updatedData });
+  };
+
+  if (isLoading) return <Loader />;
+  if (isError) return <p className="text-red-500">{error.message}</p>;
+
+  return (
+    <div className="min-h-screen p-6 bg-neutral">
+      <h2 className="text-3xl font-bold text-primary text-center mb-6">
+        My Classes ({myClasses.length})
+      </h2>
+
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {myClasses.map((cls) => (
+          <div
+            key={cls._id}
+            className="bg-base-100 shadow-lg p-4 rounded-xl space-y-3"
+          >
+            <img
+              src={cls.image}
+              alt={cls.title}
+              className="w-full h-48 object-cover rounded-lg"
+            />
+            <h2 className="text-xl font-semibold">{cls.title}</h2>
+            <p>
+              <strong>Name:</strong> {cls.name}
+            </p>
+            <p>
+              <strong>Email:</strong> {cls.email}
+            </p>
+            <p>
+              <strong>Price:</strong> ${cls.price}
+            </p>
+            <p>
+              <strong>Status:</strong>{" "}
+              <span
+                className={`badge ml-2 ${
+                  cls.status === "approved" ? "badge-success" : "badge-warning"
+                }`}
+              >
+                {cls.status}
+              </span>
+            </p>
+
+            <div className="flex flex-wrap gap-2">
+              {/* Update: Open Modal */}
+              <button
+                onClick={() => {
+                  setSelectedClass(cls);
+                  setUpdatedData({
+                    title: cls.title,
+                    price: cls.price,
+                    description: cls.description,
+                    name: cls.name,
+                    email: cls.email,
+                    image: cls.image,
+                    status: cls.status || "pending",
+                  });
+                }}
+                className="btn btn-sm btn-info text-white"
+              >
+                Update
+              </button>
+
+              {/* Delete */}
+              <button
+                onClick={() =>
+                  Swal.fire({
+                    title: "Are you sure?",
+                    text: "You won't be able to undo this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "Yes, delete it!",
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      deleteClassMutation.mutate(cls._id);
+                    }
+                  })
+                }
+                className="btn btn-sm btn-error"
+              >
+                Delete
+              </button>
+
+              {/* See Details */}
+              <button
+                onClick={() => navigate(`/dashboard/my-class/${cls._id}`)}
+                className="btn btn-sm btn-secondary"
+                disabled={cls.status !== "approved"}
+              >
+                See Details
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Update Class Modal */}
+      {selectedClass && (
+        <UpdateClassModal
+          selectedClass={selectedClass}
+          updatedData={updatedData}
+          setUpdatedData={setUpdatedData}
+          onUpdateSubmit={handleUpdateSubmit}
+          isPending={updateClassMutation.isLoading}
+          onClose={() => setSelectedClass(null)}
+        />
+      )}
+    </div>
+  );
+};
+
+export default MyClasses;

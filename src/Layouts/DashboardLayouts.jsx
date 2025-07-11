@@ -93,7 +93,7 @@ const DashboardLayouts = () => {
           </li>
           <li>
             <NavLink
-              to="/dashboard/my-class"
+              to="/dashboard/myClass"
               className={({ isActive }) =>
                 `hover:text-primary ${isActive ? "text-primary font-bold" : ""}`
               }
@@ -174,7 +174,7 @@ const DashboardLayouts = () => {
       </div>
 
       {/* Main Content */}
-      <main className="flex-1 mt-16 lg:mt-0 h-screen overflow-x-auto">
+      <main className="flex-1 mt-16 lg:mt-0 min-h-[100dvh] overflow-x-auto overflow-y-auto">
         <Outlet />
       </main>
     </div>
