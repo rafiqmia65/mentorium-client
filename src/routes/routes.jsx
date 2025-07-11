@@ -10,6 +10,8 @@ import TeachOnMentorium from "../pages/TeachOnMentorium/TeachOnMentorium";
 import AdminRoutes from "./AdminRoutes";
 import TeacherRequest from "../pages/Dashboard/AdminPages/TeacherRequest/TeacherRequest";
 import Users from "../pages/Dashboard/AdminPages/Users/Users";
+import TeacherRoutes from "./TeacherRoutes";
+import AddClass from "../pages/Dashboard/TeacherPages/AddClass/AddClass";
 
 export const router = createBrowserRouter([
   {
@@ -62,6 +64,16 @@ export const router = createBrowserRouter([
           <AdminRoutes>
             <Users></Users>
           </AdminRoutes>
+        ),
+      },
+
+      // Only Teacher access routes
+      {
+        path: "addClass",
+        element: (
+          <TeacherRoutes>
+            <AddClass></AddClass>
+          </TeacherRoutes>
         ),
       },
     ],
