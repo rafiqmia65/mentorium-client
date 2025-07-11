@@ -13,6 +13,8 @@ import Users from "../pages/Dashboard/AdminPages/Users/Users";
 import TeacherRoutes from "./TeacherRoutes";
 import AddClass from "../pages/Dashboard/TeacherPages/AddClass/AddClass";
 import MyClasses from "../pages/Dashboard/TeacherPages/MyClasses/MyClasses";
+import AllClasses from "../pages/AllClasses/AllClasses";
+import AdminAllClasses from "../pages/Dashboard/AdminPages/AdminAllClasses/AdminAllClasses";
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +33,10 @@ export const router = createBrowserRouter([
       {
         path: "signUp",
         Component: SignUp,
+      },
+      {
+        path: "allClasses",
+        Component: AllClasses,
       },
       {
         path: "teach",
@@ -64,6 +70,14 @@ export const router = createBrowserRouter([
         element: (
           <AdminRoutes>
             <Users></Users>
+          </AdminRoutes>
+        ),
+      },
+      {
+        path: "adminAllClasses",
+        element: (
+          <AdminRoutes>
+            <AdminAllClasses></AdminAllClasses>
           </AdminRoutes>
         ),
       },
