@@ -15,6 +15,10 @@ import AddClass from "../pages/Dashboard/TeacherPages/AddClass/AddClass";
 import MyClasses from "../pages/Dashboard/TeacherPages/MyClasses/MyClasses";
 import AllClasses from "../pages/AllClasses/AllClasses";
 import AdminAllClasses from "../pages/Dashboard/AdminPages/AdminAllClasses/AdminAllClasses";
+import ClassDetails from "../pages/ClassDetails/ClassDetails";
+import PaymentPage from "../pages/ClassDetails/PaymentPage/PaymentPage";
+import StudentRoutes from "./StudentRoutes";
+import MyEnrolledClasses from "../pages/Dashboard/StudentPages/MyEnrolledClasses/MyEnrolledClasses";
 
 export const router = createBrowserRouter([
   {
@@ -37,6 +41,23 @@ export const router = createBrowserRouter([
       {
         path: "allClasses",
         Component: AllClasses,
+      },
+      {
+        path: "enroll/:id",
+        element: (
+          <PrivateRoutes>
+            <ClassDetails></ClassDetails>
+          </PrivateRoutes>
+        ),
+      },
+      // --- নতুন রুট: পেমেন্ট পেজ ---
+      {
+        path: "payment/:id", // :id দিয়ে ক্লাস ID নেওয়া হবে
+        element: (
+          <PrivateRoutes>
+            <PaymentPage />
+          </PrivateRoutes>
+        ),
       },
       {
         path: "teach",
@@ -97,6 +118,16 @@ export const router = createBrowserRouter([
           <TeacherRoutes>
             <MyClasses></MyClasses>
           </TeacherRoutes>
+        ),
+      },
+
+      // Only student access Routes
+      {
+        path: "myEnrolledClass",
+        element: (
+          <StudentRoutes>
+            <MyEnrolledClasses></MyEnrolledClasses>
+          </StudentRoutes>
         ),
       },
     ],
