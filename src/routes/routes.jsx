@@ -20,6 +20,7 @@ import PaymentPage from "../pages/ClassDetails/PaymentPage/PaymentPage";
 import StudentRoutes from "./StudentRoutes";
 import MyEnrolledClasses from "../pages/Dashboard/StudentPages/MyEnrolledClasses/MyEnrolledClasses";
 import ContinueClass from "../pages/Dashboard/StudentPages/ContinueClass/ContinueClass";
+import TeacherClassDetails from "../pages/Dashboard/TeacherPages/TeacherClassDetails/TeacherClassDetails";
 
 export const router = createBrowserRouter([
   {
@@ -118,6 +119,14 @@ export const router = createBrowserRouter([
         element: (
           <TeacherRoutes>
             <MyClasses></MyClasses>
+          </TeacherRoutes>
+        ),
+      },
+      {
+        path: "teacherClassDetails/:id",
+        element: (
+          <TeacherRoutes>
+            <TeacherClassDetails></TeacherClassDetails>
           </TeacherRoutes>
         ),
       },
