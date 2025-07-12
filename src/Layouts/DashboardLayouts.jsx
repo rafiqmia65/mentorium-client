@@ -109,7 +109,7 @@ const DashboardLayouts = () => {
         <>
           <li>
             <NavLink
-              to="/dashboard/my-enroll-class"
+              to="/dashboard/myEnrolledClass"
               className={({ isActive }) =>
                 `hover:text-primary ${isActive ? "text-primary font-bold" : ""}`
               }

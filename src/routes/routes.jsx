@@ -19,6 +19,7 @@ import ClassDetails from "../pages/ClassDetails/ClassDetails";
 import PaymentPage from "../pages/ClassDetails/PaymentPage/PaymentPage";
 import StudentRoutes from "./StudentRoutes";
 import MyEnrolledClasses from "../pages/Dashboard/StudentPages/MyEnrolledClasses/MyEnrolledClasses";
+import ContinueClass from "../pages/Dashboard/StudentPages/ContinueClass/ContinueClass";
 
 export const router = createBrowserRouter([
   {
@@ -127,6 +128,14 @@ export const router = createBrowserRouter([
         element: (
           <StudentRoutes>
             <MyEnrolledClasses></MyEnrolledClasses>
+          </StudentRoutes>
+        ),
+      },
+      {
+        path: "continueClass/:id",
+        element: (
+          <StudentRoutes>
+            <ContinueClass></ContinueClass>
           </StudentRoutes>
         ),
       },
