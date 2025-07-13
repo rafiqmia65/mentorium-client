@@ -5,6 +5,7 @@ import WhyChooseMentorium from './WhyChooseMentorium/WhyChooseMentorium';
 import EventsSection from './EventsSection/EventsSection';
 import BecomeInstructor from './BecomeInstructor/BecomeInstructor';
 import PopularClasses from './PopularClasses/PopularClasses';
+import FeedbackSection from './FeedbackSection/FeedbackSection';
 
 const Home = () => {
     return (
@@ -14,6 +15,7 @@ const Home = () => {
             <WhyChooseMentorium></WhyChooseMentorium>
             <EventsSection></EventsSection>
             <BecomeInstructor></BecomeInstructor>
+            <FeedbackSection></FeedbackSection>
             <PartnersSection></PartnersSection>
         </div>
     );
