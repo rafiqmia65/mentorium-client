@@ -21,6 +21,7 @@ import StudentRoutes from "./StudentRoutes";
 import MyEnrolledClasses from "../pages/Dashboard/StudentPages/MyEnrolledClasses/MyEnrolledClasses";
 import ContinueClass from "../pages/Dashboard/StudentPages/ContinueClass/ContinueClass";
 import TeacherClassDetails from "../pages/Dashboard/TeacherPages/TeacherClassDetails/TeacherClassDetails";
+import Profile from "../pages/Dashboard/Profile/Profile";
 
 export const router = createBrowserRouter([
   {
@@ -79,6 +80,14 @@ export const router = createBrowserRouter([
       </PrivateRoutes>
     ),
     children: [
+      {
+        path: "profile",
+        element: (
+          <PrivateRoutes>
+            <Profile></Profile>
+          </PrivateRoutes>
+        ),
+      },
       // Only Admin Access Routes
       {
         path: "teacherRequest",
