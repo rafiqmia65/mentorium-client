@@ -57,10 +57,13 @@ const MyEnrolledClasses = () => {
 
         {enrolledClasses.length === 0 ? (
           <div className="text-center py-12">
-            <p className="text-lg text-gray-600 mb-4">
+            <p className="text-lg text-text mb-4">
               You haven't enrolled in any classes yet.
             </p>
-            <Link to="/allClasses" className="btn btn-primary">
+            <Link
+              to="/allClasses"
+              className="btn bg-primary text-white hover:bg-primary-content"
+            >
               Browse Available Classes
             </Link>
           </div>
@@ -85,15 +88,15 @@ const MyEnrolledClasses = () => {
                 </div>
 
                 <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2 text-gray-800">
+                  <h3 className="text-xl font-bold mb-2 text-primary">
                     {classItem.title}
                   </h3>
 
-                  <p className="text-gray-600 mb-4">
+                  <p className="text-text mb-4">
                     Instructor: {classItem.instructorName || classItem.name}
                   </p>
 
-                  <div className="text-sm text-gray-500 mb-4">
+                  <div className="text-sm text-text mb-4">
                     <p>
                       Enrolled:{" "}
                       {new Date(classItem.enrollmentDate).toLocaleDateString()}
@@ -103,7 +106,7 @@ const MyEnrolledClasses = () => {
 
                   <Link
                     to={`/dashboard/continueClass/${classItem._id}`}
-                    className="btn btn-primary w-full"
+                    className="btn bg-primary w-full text-white hover:bg-primary-content"
                   >
                     Continue Learning
                   </Link>

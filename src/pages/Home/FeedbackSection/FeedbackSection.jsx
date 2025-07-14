@@ -85,11 +85,11 @@ const FeedbackSection = () => {
           {feedbacks.map((feedback) => (
             <SwiperSlide key={feedback._id}>
               <div className="bg-base-100 shadow-lg rounded-xl p-6 flex flex-col items-center text-center h-full">
-                <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-secondary mb-4">
+                <div className="w-20 h-20 rounded-full overflow-hidden border-4 border-secondary mb-4">
                   <img
                     src={feedback.studentPhoto}
                     alt={feedback.studentName}
-                    className="w-full p-2 h-full object-cover"
+                    className="w-full h-full object-cover"
                     onError={(e) => {
                       e.target.src =
                         "https://img.icons8.com/?size=100&id=124204&format=png&color=000000";

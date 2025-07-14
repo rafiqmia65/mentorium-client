@@ -85,11 +85,11 @@ const AdminAllClasses = () => {
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-primary text-white">
+            <tbody className="bg-primary text-text">
               {classes.map((cls, idx) => (
                 <tr
                   key={cls._id}
-                  className="border-b border-gray-200 hover:bg-primary-content transition"
+                  className="border-b bg-neutral border-secondary transition"
                 >
                   <td className="py-3 px-3">{idx + 1}</td>
                   <td className="py-3 px-3">
@@ -144,7 +144,7 @@ const AdminAllClasses = () => {
                   <td className="py-3 px-3 text-center">
                     <button
                       onClick={() =>
-                        navigate(`/dashboard/class-progress/${cls._id}`)
+                        navigate(`/dashboard/admin/class-progress/${cls._id}`)
                       }
                       className="btn btn-sm btn-accent text-white text-xs sm:text-sm w-full flex-shrink-0"
                       disabled={cls.status !== "approved"}

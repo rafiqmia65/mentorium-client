@@ -15,8 +15,8 @@ const Home = () => {
       <PopularClasses></PopularClasses>
       <WhyChooseMentorium></WhyChooseMentorium>
       <EventsSection></EventsSection>
-      <BecomeInstructor></BecomeInstructor>
       <StatsSection></StatsSection>
+      <BecomeInstructor></BecomeInstructor>
       <FeedbackSection></FeedbackSection>
       <PartnersSection></PartnersSection>
     </div>

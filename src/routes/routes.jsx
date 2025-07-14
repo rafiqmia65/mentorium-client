@@ -22,6 +22,7 @@ import MyEnrolledClasses from "../pages/Dashboard/StudentPages/MyEnrolledClasses
 import ContinueClass from "../pages/Dashboard/StudentPages/ContinueClass/ContinueClass";
 import TeacherClassDetails from "../pages/Dashboard/TeacherPages/TeacherClassDetails/TeacherClassDetails";
 import Profile from "../pages/Dashboard/Profile/Profile";
+import AdminClassProgress from "../pages/Dashboard/AdminPages/AdminClassProgress/AdminClassProgress";
 
 export const router = createBrowserRouter([
   {
@@ -113,7 +114,14 @@ export const router = createBrowserRouter([
           </AdminRoutes>
         ),
       },
-
+      {
+        path: "admin/class-progress/:id",
+        element: (
+          <AdminRoutes>
+            <AdminClassProgress></AdminClassProgress>
+          </AdminRoutes>
+        ),
+      },
       // Only Teacher access routes
       {
         path: "addClass",

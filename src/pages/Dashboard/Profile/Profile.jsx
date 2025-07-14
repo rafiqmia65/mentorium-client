@@ -8,13 +8,13 @@ import {
   FaCalendarAlt,
   FaChalkboardTeacher,
   FaGraduationCap,
-} from "react-icons/fa"; // আইকন যোগ করা হয়েছে
+} from "react-icons/fa";
 import useAuth from "../../../Hook/useAuth";
 import useAxiosSecure from "../../../Hook/useAxiosSecure";
 import Loader from "../../Loader/Loader";
 
 const Profile = () => {
-  const { user, loading: authLoading } = useAuth(); // user এবং authLoading স্টেট নিন
+  const { user, loading: authLoading } = useAuth();
   const axiosSecure = useAxiosSecure();
 
   // Fetch user details from the backend
@@ -25,17 +25,17 @@ const Profile = () => {
     error,
     isFetching,
   } = useQuery({
-    queryKey: ["userProfile", user?.email], // user.email এর উপর নির্ভর করে ডেটা ফেচ হবে
+    queryKey: ["userProfile", user?.email],
     queryFn: async () => {
-      if (!user?.email) return {}; // If no user email, return empty object
+      if (!user?.email) return {};
       console.log("Fetching user profile for:", user.email);
       const res = await axiosSecure.get(`/users/${user.email}`);
       console.log("User profile data:", res.data.data);
-      return res.data.data; // Assuming res.data.data contains the user object
+      return res.data.data;
     },
-    enabled: !!user?.email && !authLoading, // user.email থাকা এবং authLoading শেষ হওয়া পর্যন্ত কোয়েরি রান করবে না
-    staleTime: 1000 * 60 * 5, // Data considered fresh for 5 minutes
-    cacheTime: 1000 * 60 * 10, // Data stays in cache for 10 minutes
+    enabled: !!user?.email && !authLoading,
+    staleTime: 1000 * 60 * 5,
+    cacheTime: 1000 * 60 * 10,
   });
 
   if (isLoading || isFetching || authLoading) {
@@ -81,16 +81,16 @@ const Profile = () => {
 
           {/* User Information Section */}
           <div className="flex-grow text-center md:text-left">
-            <h3 className="text-4xl font-extrabold text-gray-900 mb-2">
+            <h3 className="text-4xl font-extrabold text-secondary mb-2">
               {userProfile.name || "N/A"}
             </h3>
-            <p className="text-lg text-gray-600 mb-4 flex items-center justify-center md:justify-start">
+            <p className="text-lg text-text mb-4 flex items-center justify-center md:justify-start">
               <FaUserTag className="mr-2 text-primary" />
               Role:{" "}
               <span className="font-semibold capitalize ml-1">{userRole}</span>
             </p>
 
-            <div className="space-y-3 text-gray-700">
+            <div className="space-y-3 text-text">
               <p className="flex items-center justify-center md:justify-start">
                 <FaEnvelope className="mr-2 text-secondary" />
                 Email:{" "}
@@ -118,12 +118,12 @@ const Profile = () => {
 
             {/* Conditional Rendering for Teacher/Admin Specific Info */}
             {userRole === "teacher" && userProfile.teacherApplication && (
-              <div className="mt-6 p-4 bg-blue-50 rounded-lg shadow-sm">
-                <h4 className="text-xl font-semibold text-blue-800 mb-3 flex items-center">
+              <div className="mt-6 p-4 bg-base-100 rounded-lg shadow-sm">
+                <h4 className="text-xl font-semibold text-primary mb-3 flex items-center">
                   <FaChalkboardTeacher className="mr-2" /> Teacher Application
                   Details
                 </h4>
-                <p className="text-gray-700">
+                <p className="text-text">
                   <strong>Status:</strong>{" "}
                   <span
                     className={`font-medium capitalize ${
@@ -137,15 +137,15 @@ const Profile = () => {
                     {userProfile.teacherApplication.status}
                   </span>
                 </p>
-                <p className="text-gray-700">
+                <p className="text-text">
                   <strong>Experience:</strong>{" "}
                   {userProfile.teacherApplication.experience || "N/A"}
                 </p>
-                <p className="text-gray-700">
+                <p className="text-text">
                   <strong>Subject:</strong>{" "}
                   {userProfile.teacherApplication.category || "N/A"}
                 </p>
-                <p className="text-gray-700">
+                <p className="text-text">
                   <strong>Applied On:</strong>{" "}
                   {new Date(
                     userProfile.teacherApplication.appliedAt
@@ -155,11 +155,11 @@ const Profile = () => {
             )}
 
             {userRole === "admin" && (
-              <div className="mt-6 p-4 bg-green-50 rounded-lg shadow-sm">
-                <h4 className="text-xl font-semibold text-green-800 mb-3 flex items-center">
+              <div className="mt-6 p-4 bg-base-100 rounded-lg shadow-sm">
+                <h4 className="text-xl font-semibold text-text mb-3 flex items-center">
                   <FaGraduationCap className="mr-2" /> Administrator Privileges
                 </h4>
-                <p className="text-gray-700">
+                <p className="text-text">
                   You have full administrative access to manage users, classes,
                   and teacher requests.
                 </p>
@@ -168,7 +168,9 @@ const Profile = () => {
 
             {/* Edit Profile Button (Optional - if you want to add this functionality later) */}
             <div className="mt-8 text-center md:text-left">
-              <button className="btn btn-primary">Edit Profile</button>
+              <button className="btn bg-primary text-white hover:bg-primary-content">
+                Edit Profile
+              </button>
             </div>
           </div>
         </div>

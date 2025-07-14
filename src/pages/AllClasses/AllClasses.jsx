@@ -63,10 +63,10 @@ const AllClasses = () => {
       >
         <div className="absolute pt-5 inset-0 bg-black opacity-50"></div>
         <div className="relative z-10 text-center p-4">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 leading-tight">
+          <h1 className="text-4xl md:text-5xl  lg:text-6xl font-extrabold mb-4 leading-tight">
             Discover Your Next Learning Journey
           </h1>
-          <p className="text-lg md:text-xl max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl  max-w-2xl mx-auto">
             Explore a wide range of courses taught by expert instructors. Your
             path to knowledge starts here.
           </p>
@@ -79,7 +79,7 @@ const AllClasses = () => {
         </h2>
 
         {allClasses.length === 0 ? (
-          <p className="text-center text-gray-600 text-lg">
+          <p className="text-center text-text text-lg">
             No approved classes available yet.
           </p>
         ) : (
@@ -94,16 +94,23 @@ const AllClasses = () => {
                   alt={cls.title}
                   className="w-full h-48 object-cover rounded-lg mb-2"
                 />
-                <h2 className="text-xl font-semibold mb-1">{cls.title}</h2>
-                <p className="text-text">
-                  <strong>Name:</strong> {cls.name}
-                </p>
-                <p className="text-text">
-                  <strong>Price:</strong> ${cls.price}
-                </p>
-                <p className="text-text">
-                  <strong>Total Enrolled:</strong> {cls.totalEnrolled || 0}
-                </p>
+                <div className="flex justify-between items-center text-secondary">
+                  <p className="text-text">
+                    <strong>Price:</strong> ${cls.price}
+                  </p>
+                  <p className="text-text">
+                    <strong>Total Enrolled:</strong> {cls.totalEnrolled || 0}
+                  </p>
+                </div>
+                <div className="flex justify-between items-center">
+                  <h2 className="text-xl text-primary font-semibold mb-1">
+                    {cls.title}
+                  </h2>
+                  <p className="text-text">
+                    <strong>Instructor:</strong> {cls.name}
+                  </p>
+                </div>
+
                 <p className="line-clamp-3 text-text flex-grow">
                   <strong>Description:</strong> {cls.description}
                 </p>

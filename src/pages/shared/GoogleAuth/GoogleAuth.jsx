@@ -1,39 +1,55 @@
 import React from "react";
-import useAuth from "../../../Hook/useAuth";
 import Swal from "sweetalert2";
-import { Navigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
+import useAuth from "../../../Hook/useAuth";
+import useAxiosSecure from "../../../Hook/useAxiosSecure";
 
 const GoogleAuth = () => {
   const { setUser, googleAuth } = useAuth();
+  const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const handleGoogleAuth = () => {
-    googleAuth()
-      .then((result) => {
-        const newUser = result.user;
+  const handleGoogleAuth = async () => {
+    try {
+      const result = await googleAuth();
+      const newUser = result.user;
 
-        Swal.fire({
-          title: `${newUser.displayName}'s you are successfully Logged In`,
-          text: "You clicked the button!",
-          icon: "success",
-        });
+      // Check if user exists in DB
+      const { data } = await axiosSecure.get(`/users/${newUser.email}`);
 
-        setUser(newUser);
-        Navigate(`${location.state ? location.state : "/"}`);
-      })
-      .catch((error) => {
-        const errorMessage = error.message;
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: errorMessage,
-          footer: '<a href="#">Why do I have this issue?</a>',
-        });
+      if (!data.data) {
+        // New user, add to database with role: student
+        const saveUser = {
+          name: newUser.displayName,
+          email: newUser.email,
+          photo: newUser.photoURL,
+          role: "student",
+          createdAt: new Date(),
+        };
+
+        await axiosSecure.post("/users", saveUser);
+      }
+
+      Swal.fire({
+        title: `${newUser.displayName}, you are successfully Logged In`,
+        icon: "success",
       });
+
+      setUser(newUser);
+      navigate(location.state?.from || "/");
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: error.message,
+        footer: '<a href="#">Why do I have this issue?</a>',
+      });
+    }
   };
 
   return (
     <div>
-      {/* Google */}
       <button
         onClick={handleGoogleAuth}
         className="btn btn-secondary w-full mt-4"

@@ -132,7 +132,7 @@ const DashboardLayouts = () => {
   return (
     <div className="flex min-h-screen">
       {/* Sidebar */}
-      <aside className="hidden lg:flex lg:w-64 bg-base-100 shadow-lg flex-col p-5">
+      <aside className="hidden lg:flex fixed top-0 left-0 h-screen w-64 bg-base-100 shadow-lg flex-col p-5 z-30">
         <div className="flex justify-between gap-12 items-center">
           <MentoriumLogo />
           <DarkLightMode />
@@ -174,7 +174,7 @@ const DashboardLayouts = () => {
       </div>
 
       {/* Main Content */}
-      <main className="flex-1 mt-16 lg:mt-0 min-h-[100dvh] overflow-x-auto overflow-y-auto">
+      <main className="flex-1 mt-16 lg:mt-0 min-h-[100dvh] lg:ml-64 overflow-x-auto overflow-y-auto">
         <Outlet />
       </main>
     </div>

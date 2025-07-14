@@ -146,7 +146,6 @@ const TeacherRequest = () => {
           Manage Teacher Requests ({teacherRequests.length})
         </h2>
 
-
         {/* ✅ Horizontal Scroll Wrapper */}
         <div className="w-full overflow-x-auto rounded-lg">
           <table className="w-full min-w-[900px] text-left text-sm">
@@ -161,11 +160,11 @@ const TeacherRequest = () => {
                 <th className="py-2 px-3 min-w-[160px] text-center">Actions</th>
               </tr>
             </thead>
-            <tbody className="bg-primary text-white">
+            <tbody className="bg-primary text-text">
               {teacherRequests.map((request) => (
                 <tr
                   key={request._id}
-                  className="border-b border-secondary hover:bg-primary-content transition-all"
+                  className="bg-neutral border-b border-secondary transition-all"
                 >
                   <td className="py-3 px-3 truncate">{request.name}</td>
                   <td className="py-3 px-3">
@@ -177,7 +176,7 @@ const TeacherRequest = () => {
                             "https://placehold.co/100x100/aabbcc/ffffff?text=No+Img"
                           }
                           alt={request.name}
-                          className="bg-accent p-1 shadow"
+                          className="shadow-2xl"
                           onError={(e) => {
                             e.target.onerror = null;
                             e.target.src =

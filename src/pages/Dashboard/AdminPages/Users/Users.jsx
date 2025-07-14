@@ -93,11 +93,11 @@ const Users = () => {
                 <th className="py-2 px-3 min-w-[120px] text-center">Action</th>
               </tr>
             </thead>
-            <tbody className="bg-primary text-white">
+            <tbody className="bg-neutral text-text">
               {users.map((user) => (
                 <tr
                   key={user._id}
-                  className="border-b border-gray-200 hover:bg-primary-content transition"
+                  className="border-b border-secondary transition"
                 >
                   <td className="py-3 px-3">{user.name}</td>
                   <td className="py-3 px-3">{user.email}</td>

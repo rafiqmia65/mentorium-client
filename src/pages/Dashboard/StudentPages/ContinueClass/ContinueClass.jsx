@@ -244,8 +244,8 @@ const ContinueClass = () => {
               >
                 {/* Feedback Textarea */}
                 <div className="form-control">
-                  <label className="label">
-                    <span className="label-text">Your Feedback</span>
+                  <label className="label text-text">
+                    <span className="label-text text-text">Your Feedback</span>
                   </label>
                   <textarea
                     {...registerEvaluation("description", {
@@ -303,7 +303,7 @@ const ContinueClass = () => {
                   </button>
                   <button
                     type="button"
-                    className="btn"
+                    className="btn btn-secondary"
                     onClick={() => {
                       setShowEvaluationModal(false);
                       setSelectedRating(0);

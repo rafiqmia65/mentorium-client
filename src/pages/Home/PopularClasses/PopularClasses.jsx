@@ -2,7 +2,7 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import Marquee from "react-fast-marquee";
 import { FaUsers, FaDollarSign } from "react-icons/fa";
-import { Link, useNavigate } from "react-router"; // Changed from react-router to react-router-dom
+import { Link, useNavigate } from "react-router";
 import useAxiosSecure from "../../../Hook/useAxiosSecure";
 import Loader from "../../Loader/Loader";
 
@@ -39,7 +39,7 @@ const PopularClasses = () => {
 
   if (popularClasses.length === 0) {
     return (
-      <div className="text-center text-gray-600 py-8">
+      <div className="text-center text-text py-8">
         No popular classes available yet.
       </div>
     );
@@ -59,11 +59,11 @@ const PopularClasses = () => {
           </p>
           <div className="flex justify-end">
             <Link
-            className="px-4 py-2 rounded-lg shadow-lg transition-all bg-secondary text-white"
-            to="/allClasses"
-          >
-            See All Classes
-          </Link>
+              className="px-4 py-2 rounded-lg shadow-lg transition-all bg-secondary text-white"
+              to="/allClasses"
+            >
+              See All Classes
+            </Link>
           </div>
         </div>
 
@@ -97,13 +97,13 @@ const PopularClasses = () => {
                     <h3 className="card-title text-xl font-bold text-primary mb-2 line-clamp-1">
                       {cls.title}
                     </h3>
-                    <p className="text-gray-600 text-sm line-clamp-2 mb-3">
+                    <p className="text-text text-sm line-clamp-2 mb-3">
                       {cls.description}
                     </p>
                     <div className="flex justify-between items-center text-sm mb-4">
                       <div className="flex items-center">
-                        <FaUsers className="mr-1 text-primary" />
-                        <span className="text-info">
+                        <FaUsers className="mr-1 text-green-600" />
+                        <span className="text-text">
                           {cls.totalEnrolled || 0} Enrolled
                         </span>
                       </div>

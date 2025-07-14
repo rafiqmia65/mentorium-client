@@ -65,7 +65,7 @@ const Navbar = () => {
       {user && (
         <li>
           <NavLink
-            to="/dashboard"
+            to="/dashboard/profile"
             className={({ isActive }) =>
               isActive ? "text-primary font-bold" : ""
             }
@@ -73,6 +73,16 @@ const Navbar = () => {
             Dashboard
           </NavLink>
         </li>
+      )}
+      {!user && (
+        <div className="flex lg:hidden gap-2">
+          <Link className="btn bg-primary text-white" to="/login">
+            Login
+          </Link>
+          <Link className="btn bg-secondary text-white" to="/signUP">
+            Sign Up
+          </Link>
+        </div>
       )}
     </>
   );
@@ -151,14 +161,14 @@ const Navbar = () => {
                 </ul>
               </div>
             ) : (
-              <>
+              <div className="hidden lg:flex gap-2">
                 <Link className="btn bg-primary text-white" to="/login">
                   Login
                 </Link>
                 <Link className="btn bg-secondary text-white" to="/signUP">
                   Sign Up
                 </Link>
-              </>
+              </div>
             )}
           </div>
         </div>

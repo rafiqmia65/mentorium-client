@@ -141,7 +141,7 @@ const TeachOnMentorium = () => {
   return (
     <div className="pt-24 bg-neutral min-h-screen flex items-center justify-center">
       <div className="max-w-3xl bg-base-100 mx-auto p-6 rounded-lg shadow-md w-full">
-        <h2 className="text-2xl font-bold mb-6 text-primary text-center">
+        <h2 className="text-2xl font-bold mb-6 text-secondary text-center">
           Apply to Teach on Mentorium
         </h2>
 
@@ -152,8 +152,8 @@ const TeachOnMentorium = () => {
             </div>
           </div>
           <div>
-            <p className="font-semibold">{user?.displayName}</p>
-            <p className="text-sm text-gray-500">{user?.email}</p>
+            <p className="font-semibold text-primary">{user?.displayName}</p>
+            <p className="text-sm text-text">{user?.email}</p>
           </div>
         </div>
 

@@ -1,76 +1,97 @@
-import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import { useState } from "react";
-import useAxiosSecure from "../../../Hook/useAxiosSecure";
-import useAuth from "../../../Hook/useAuth";
-import { useNavigate, useLocation } from "react-router";
+import React, { useState } from 'react';
+import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import Swal from 'sweetalert2';
+import useAxiosSecure from '../../../Hook/useAxiosSecure';
+import useAuth from '../../../Hook/useAuth';
 
-const CheckoutForm = ({ classInfo, clientSecret, navigate, location }) => {
+const CheckoutForm = ({ classInfo, clientSecret, navigate }) => {
   const stripe = useStripe();
   const elements = useElements();
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
+  const [cardError, setCardError] = useState('');
   const [processing, setProcessing] = useState(false);
-  const [error, setError] = useState(null);
+  const [transactionId, setTransactionId] = useState('');
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setProcessing(true);
-    setError(null);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
     if (!stripe || !elements) {
       return;
     }
 
-    try {
-      console.log("Confirming payment with clientSecret:", clientSecret);
-
-      const { error: stripeError, paymentIntent } =
-        await stripe.confirmCardPayment(clientSecret, {
-          payment_method: {
-            card: elements.getElement(CardElement),
-          },
-        });
-
-      if (stripeError) {
-        console.error("Stripe payment error:", stripeError);
-        setError(stripeError.message);
-        setProcessing(false);
-        return;
-      }
-
-      console.log("Payment successful, paymentIntent:", paymentIntent);
-      console.log("Attempting enrollment for class:", classInfo._id);
-
-      const enrollmentResponse = await axiosSecure.post("/enrollments", {
-        classId: classInfo._id,
-        studentEmail: user.email,
-        paymentIntentId: paymentIntent.id,
-      });
-
-      console.log("Enrollment response:", enrollmentResponse.data);
-
-      if (enrollmentResponse.data.success) {
-        navigate("/dashboard/myEnrolledClass", {
-          state: { from: location },
-          replace: true,
-        });
-      } else {
-        setError(enrollmentResponse.data.message || "Enrollment failed");
-      }
-    } catch (err) {
-      console.error("Full error details:", {
-        message: err.message,
-        response: err.response?.data,
-        config: err.config,
-      });
-      setError(
-        err.response?.data?.message ||
-          err.message ||
-          "An unknown error occurred"
-      );
-    } finally {
-      setProcessing(false);
+    const card = elements.getElement(CardElement);
+    if (card === null) {
+      return;
     }
+
+    setProcessing(true);
+    setCardError('');
+
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: 'card',
+      card,
+    });
+
+    if (error) {
+      setCardError(error.message);
+      setProcessing(false);
+      return;
+    }
+
+    const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(
+      clientSecret,
+      {
+        payment_method: {
+          card: card,
+          billing_details: {
+            email: user?.email,
+            name: user?.displayName || 'Anonymous',
+          },
+        },
+      }
+    );
+
+    if (confirmError) {
+      setCardError(confirmError.message);
+      setProcessing(false);
+      return;
+    }
+
+    if (paymentIntent.status === 'succeeded') {
+      setTransactionId(paymentIntent.id);
+      
+      const payment = {
+        classId: classInfo._id,
+        studentEmail: user?.email,
+        transactionId: paymentIntent.id,
+        amount: classInfo.price,
+        date: new Date(),
+        status: 'completed',
+      };
+
+      try {
+        const res = await axiosSecure.post('/enrollments', payment);
+        if (res.data.success) {
+          Swal.fire({
+            title: 'Payment Successful!',
+            text: `You have successfully enrolled in ${classInfo.title}`,
+            icon: 'success',
+          }).then(() => {
+            navigate('/dashboard/myEnrolledClass');
+          });
+        }
+      } catch (err) {
+        console.error('Error saving enrollment:', err);
+        Swal.fire({
+          title: 'Error',
+          text: 'Payment succeeded but failed to save enrollment',
+          icon: 'error',
+        });
+      }
+    }
+
+    setProcessing(false);
   };
 
   return (
@@ -79,27 +100,25 @@ const CheckoutForm = ({ classInfo, clientSecret, navigate, location }) => {
         options={{
           style: {
             base: {
-              fontSize: "16px",
-              color: "#424770",
-              "::placeholder": {
-                color: "#aab7c4",
+              fontSize: '16px',
+              '::placeholder': {
+                color: '#ffffff',
               },
             },
             invalid: {
-              color: "#9e2146",
+              color: '#9e2146',
             },
           },
         }}
+        className="border p-3 rounded"
       />
-
-      {error && <div className="text-red-500 py-2">{error}</div>}
-
+      {cardError && <p className="text-red-500">{cardError}</p>}
       <button
         type="submit"
         disabled={!stripe || processing}
-        className="btn bg-primary hover:bg-primary-content w-full mt-4"
+        className="btn btn-primary text-white w-full"
       >
-        {processing ? "Processing..." : `Pay $${classInfo.price}`}
+        {processing ? 'Processing...' : `Pay $${classInfo.price}`}
       </button>
     </form>
   );

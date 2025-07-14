@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams, useNavigate } from "react-router"; 
+import { useParams, useNavigate } from "react-router";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import { FaUsers, FaTasks, FaCheckCircle, FaPlus } from "react-icons/fa";
@@ -103,7 +103,7 @@ const TeacherClassDetails = () => {
   if (!classDetails) {
     return (
       <div className="min-h-screen p-6 bg-neutral flex justify-center items-center">
-        <p className="text-gray-600 text-center text-lg">
+        <p className="text-text text-center text-lg">
           Class not found or no details available.
         </p>
       </div>

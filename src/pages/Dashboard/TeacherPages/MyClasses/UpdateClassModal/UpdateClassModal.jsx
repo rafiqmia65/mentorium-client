@@ -56,9 +56,7 @@ const UpdateClassModal = ({
 
       if (!res.ok) {
         const errData = await res.json().catch(() => null);
-        throw new Error(
-          errData?.message || `Update failed: ${res.status}`
-        );
+        throw new Error(errData?.message || `Update failed: ${res.status}`);
       }
 
       return res.json();
@@ -188,7 +186,7 @@ const UpdateClassModal = ({
           <div className="modal-action">
             <button
               type="submit"
-              className="btn btn-primary"
+              className="btn bg-primary text-white hover:bg-primary-content"
               disabled={
                 imageUploadMutation.isLoading || updateClassMutation.isLoading
               }

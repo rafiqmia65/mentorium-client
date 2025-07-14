@@ -3,6 +3,7 @@ import { useParams, useNavigate, useLocation } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import Swal from "sweetalert2";
 import useAxiosSecure from "../../../Hook/useAxiosSecure";
 import useAuth from "../../../Hook/useAuth";
 import Loader from "../../Loader/Loader";
@@ -18,17 +19,18 @@ const PaymentPage = () => {
   const { user } = useAuth();
   const [clientSecret, setClientSecret] = useState("");
 
-  const { 
-    data: classInfo = {}, 
-    isLoading, 
-    error: classError 
+  const {
+    data: classInfo = {},
+    isLoading: classLoading,
+    error: classError,
   } = useQuery({
     queryKey: ["classInfo", id, user?.uid],
     queryFn: async () => {
       try {
         const res = await axiosSecure.get(`/class/${id}`);
-        return res.data.data; // Note: changed from res.data to res.data.data
+        return res.data.data;
       } catch (err) {
+        console.error("Error fetching class info:", err);
         if (err.response?.status === 401 || err.response?.status === 403) {
           navigate("/login", { state: { from: location }, replace: true });
         }
@@ -38,69 +40,72 @@ const PaymentPage = () => {
     enabled: !!user?.accessToken,
   });
 
-  const { 
-    data: paymentIntent = {}, 
-    isLoading: isPaymentLoading, 
-    error: paymentError 
+  const {
+    data: paymentIntentData = {},
+    isLoading: isPaymentLoading,
+    error: paymentError,
   } = useQuery({
     queryKey: ["paymentIntent", id, user?.uid],
     queryFn: async () => {
       try {
+        // Check if user is already enrolled
+        const enrollmentCheckRes = await axiosSecure.get(
+          `/users/${user.email}/enrolled-classes`
+        );
+        const isAlreadyEnrolled = enrollmentCheckRes.data.data.some(
+          (enrolledClass) => enrolledClass._id === id
+        );
+
+        if (isAlreadyEnrolled) {
+          Swal.fire({
+            icon: "info",
+            title: "Already Enrolled!",
+            text: "You are already enrolled in this class. Redirecting to your enrolled classes.",
+            timer: 3000,
+            showConfirmButton: false,
+          }).then(() => {
+            navigate("/dashboard/my-enroll-classes", { replace: true });
+          });
+          return Promise.reject(new Error("User already enrolled."));
+        }
+
+        // Create payment intent
         const res = await axiosSecure.post("/create-payment-intent", {
-          amount: Math.round(classInfo.price * 100), // Changed from price to amount
-          classId: id,
+          amount: classInfo.price,
         });
         setClientSecret(res.data.clientSecret);
         return res.data;
       } catch (err) {
+        console.error("Error creating payment intent:", err);
         throw err;
       }
     },
     enabled: !!classInfo?.price && !!user?.accessToken,
-    retry: 2,
   });
 
-  if (classError || paymentError) {
-    console.error('Payment Error Details:', {
-      classError,
-      paymentError,
-      requestUrls: {
-        class: classError?.config?.url,
-        payment: paymentError?.config?.url
-      },
-      responses: {
-        class: classError?.response?.data,
-        payment: paymentError?.response?.data
-      }
-    });
-
+  if (classLoading || isPaymentLoading) {
     return (
       <div className="min-h-screen bg-neutral py-8 px-4">
-        <div className="max-w-2xl mx-auto bg-base-100 rounded-xl shadow-md p-8">
-          <h2 className="text-2xl font-bold text-error mb-4">Payment Error</h2>
-          <div className="space-y-2 mb-4">
-            <p><strong>Error:</strong> {classError?.message || paymentError?.message}</p>
-            <p><strong>Endpoint:</strong> {classError?.config?.url || paymentError?.config?.url}</p>
-            <p><strong>Status Code:</strong> {classError?.response?.status || paymentError?.response?.status}</p>
-            <p><strong>Response:</strong> {JSON.stringify(classError?.response?.data || paymentError?.response?.data)}</p>
-          </div>
-          <button 
-            onClick={() => window.location.reload()} 
-            className="btn btn-primary"
-          >
-            Try Again
-          </button>
+        <div className="max-w-2xl mx-auto bg-base-100 rounded-xl shadow-md p-8 text-center">
+          <Loader />
+          <p className="mt-4">Preparing payment details...</p>
         </div>
       </div>
     );
   }
 
-  if (isLoading || isPaymentLoading || !clientSecret) {
+  if (classError || paymentError) {
     return (
       <div className="min-h-screen bg-neutral py-8 px-4">
-        <div className="max-w-2xl mx-auto bg-base-100 rounded-xl shadow-md p-8 text-center">
-          <Loader />
-          <p className="mt-4">Preparing your payment details...</p>
+        <div className="max-w-2xl mx-auto bg-base-100 rounded-xl shadow-md p-8">
+          <h2 className="text-2xl font-bold text-error mb-4">Payment Error</h2>
+          <p className="mb-4">{classError?.message || paymentError?.message}</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="btn btn-primary"
+          >
+            Try Again
+          </button>
         </div>
       </div>
     );
@@ -137,14 +142,16 @@ const PaymentPage = () => {
           </div>
         </div>
 
-        <Elements options={options} stripe={stripePromise}>
-          <CheckoutForm
-            classInfo={classInfo}
-            clientSecret={clientSecret}
-            navigate={navigate}
-            location={location}
-          />
-        </Elements>
+        {clientSecret && (
+          <Elements options={options} stripe={stripePromise}>
+            <CheckoutForm
+              classInfo={classInfo}
+              clientSecret={clientSecret}
+              navigate={navigate}
+              location={location}
+            />
+          </Elements>
+        )}
       </div>
     </div>
   );
