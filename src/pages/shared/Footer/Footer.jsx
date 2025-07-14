@@ -7,8 +7,11 @@ import {
 } from "react-icons/fa";
 import { NavLink } from "react-router";
 import MentoriumLogo from "../MentoriumLogo/MentoriumLogo";
+import useAuth from "../../../Hook/useAuth";
 
 const Footer = () => {
+  const { user } = useAuth();
+
   const links = (
     <>
       <li>
@@ -39,6 +42,28 @@ const Footer = () => {
           }
         >
           Teach on Mentorium
+        </NavLink>
+      </li>
+      {user && (
+        <li>
+          <NavLink
+            to="/dashboard/profile"
+            className={({ isActive }) =>
+              isActive ? "text-primary font-bold" : ""
+            }
+          >
+            Dashboard
+          </NavLink>
+        </li>
+      )}
+      <li>
+        <NavLink
+          to="/aboutUs"
+          className={({ isActive }) =>
+            isActive ? "text-primary font-bold" : ""
+          }
+        >
+          About Us
         </NavLink>
       </li>
     </>

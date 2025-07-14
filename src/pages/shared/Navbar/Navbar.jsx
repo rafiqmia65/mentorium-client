@@ -74,6 +74,16 @@ const Navbar = () => {
           </NavLink>
         </li>
       )}
+      <li>
+        <NavLink
+          to="/aboutUs"
+          className={({ isActive }) =>
+            isActive ? "text-primary font-bold" : ""
+          }
+        >
+          About Us
+        </NavLink>
+      </li>
       {!user && (
         <div className="flex lg:hidden gap-2">
           <Link className="btn bg-primary text-white" to="/login">

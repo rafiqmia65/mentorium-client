@@ -23,6 +23,7 @@ import ContinueClass from "../pages/Dashboard/StudentPages/ContinueClass/Continu
 import TeacherClassDetails from "../pages/Dashboard/TeacherPages/TeacherClassDetails/TeacherClassDetails";
 import Profile from "../pages/Dashboard/Profile/Profile";
 import AdminClassProgress from "../pages/Dashboard/AdminPages/AdminClassProgress/AdminClassProgress";
+import AboutUs from "../pages/AboutUs/AboutUs";
 
 export const router = createBrowserRouter([
   {
@@ -45,6 +46,10 @@ export const router = createBrowserRouter([
       {
         path: "allClasses",
         Component: AllClasses,
+      },
+      {
+        path: "aboutUs",
+        Component: AboutUs,
       },
       {
         path: "enroll/:id",
