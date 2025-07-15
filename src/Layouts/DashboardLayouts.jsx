@@ -1,12 +1,16 @@
 import React, { useState } from "react";
-import { NavLink, Outlet } from "react-router";
+import { Navigate, NavLink, Outlet, useNavigate } from "react-router";
 import { FaBars, FaTimes } from "react-icons/fa";
 import MentoriumLogo from "../pages/shared/MentoriumLogo/MentoriumLogo";
 import DarkLightMode from "../pages/shared/Navbar/DarkLightMode/DarkLightMode";
 import useUserRole from "../Hook/useUserRole";
 import Loader from "../pages/Loader/Loader";
+import useAuth from "../Hook/useAuth";
+import Swal from "sweetalert2";
 
 const DashboardLayouts = () => {
+  const { logOut } = useAuth();
+  const navigate = useNavigate();
   const { role, roleLoading } = useUserRole();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
@@ -17,6 +21,29 @@ const DashboardLayouts = () => {
   if (roleLoading) {
     return <Loader></Loader>;
   }
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {
+        localStorage.removeItem("access-token");
+
+        Swal.fire({
+          title: `You are successfully LogOut`,
+          text: "You clicked the button!",
+          icon: "success",
+        });
+        navigate("/");
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: errorMessage,
+          footer: '<a href="#">Why do I have this issue?</a>',
+        });
+      });
+  };
 
   // NavLinks
   const Links = (
@@ -126,6 +153,15 @@ const DashboardLayouts = () => {
           No dashboard items available for your role
         </li>
       )}
+
+      <li>
+        <button
+          onClick={handleLogOut}
+          className="btn bg-primary text-white hover:bg-primary-content"
+        >
+          Logout
+        </button>
+      </li>
     </>
   );
 
