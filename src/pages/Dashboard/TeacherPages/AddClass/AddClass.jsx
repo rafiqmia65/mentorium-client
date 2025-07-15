@@ -59,7 +59,6 @@ const AddClass = () => {
       const imageData = new FormData();
       imageData.append("file", formData.imageFile);
       imageData.append("upload_preset", uploadPreset);
-      imageData.append("cloud_name", cloudName);
 
       const imgRes = await fetch(
         `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,

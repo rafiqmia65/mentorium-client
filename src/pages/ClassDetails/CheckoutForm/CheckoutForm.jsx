@@ -102,7 +102,7 @@ const CheckoutForm = ({ classInfo, clientSecret, navigate }) => {
             base: {
               fontSize: '16px',
               '::placeholder': {
-                color: '#ffffff',
+                color: '#36d399',
               },
             },
             invalid: {

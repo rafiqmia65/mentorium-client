@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay, Navigation } from "swiper/modules";
@@ -50,7 +50,7 @@ const FeedbackSection = () => {
 
   return (
     <section className="py-12 bg-neutral">
-      <div className="container mx-auto px-4 lg:px-0 ">
+      <div className="container mx-auto px-4 lg:px-0">
         <h2 className="text-4xl font-extrabold text-center text-primary mb-10">
           What Our Students Say
         </h2>
@@ -115,9 +115,10 @@ const FeedbackSection = () => {
                     />
                   ))}
                 </div>
-                <p className="text-text leading-relaxed flex-grow">
-                  "{feedback.description}"
-                </p>
+
+                {/* Feedback Text with Toggle */}
+                <FeedbackDescription text={feedback.description} />
+
                 <p className="text-xs text-gray-400 mt-4">
                   Submitted on:{" "}
                   {new Date(feedback.submittedAt).toLocaleDateString()}
@@ -132,3 +133,30 @@ const FeedbackSection = () => {
 };
 
 export default FeedbackSection;
+
+// ------------------------------
+// 🔻 Description Toggle Component
+const FeedbackDescription = ({ text }) => {
+  const [expanded, setExpanded] = useState(false);
+  const maxLength = 150;
+
+  const toggleText = () => setExpanded(!expanded);
+  const displayText =
+    text.length <= maxLength || expanded
+      ? text
+      : text.slice(0, maxLength) + "...";
+
+  return (
+    <div className="text-text mb-2">
+      <p className="leading-relaxed">"{displayText}"</p>
+      {text.length > maxLength && (
+        <button
+          className="text-sm text-primary hover:underline mt-1"
+          onClick={toggleText}
+        >
+          {expanded ? "See Less" : "See More"}
+        </button>
+      )}
+    </div>
+  );
+};

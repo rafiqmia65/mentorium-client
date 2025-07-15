@@ -63,7 +63,7 @@ const PaymentPage = () => {
             timer: 3000,
             showConfirmButton: false,
           }).then(() => {
-            navigate("/dashboard/my-enroll-classes", { replace: true });
+            navigate("/dashboard/myEnrolledClass", { replace: true });
           });
           return Promise.reject(new Error("User already enrolled."));
         }

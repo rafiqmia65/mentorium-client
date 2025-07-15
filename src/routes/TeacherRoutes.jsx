@@ -2,6 +2,7 @@ import React from "react";
 import Loader from "../pages/Loader/Loader";
 import useAuth from "../Hook/useAuth";
 import useUserRole from "../Hook/useUserRole";
+import { Navigate } from "react-router";
 
 const TeacherRoutes = ({ children }) => {
   const { user, loading } = useAuth();
