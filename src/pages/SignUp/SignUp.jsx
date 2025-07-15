@@ -51,8 +51,17 @@ const SignUp = () => {
       const result = await createUser(email, password);
       const newUser = result.user;
 
+      const token = await newUser.getIdToken();
+      localStorage.setItem("access-token", token);
+
       await updateUser({ displayName: name, photoURL: photoUrl });
-      setUser({ ...newUser, displayName: name, photoURL: photoUrl });
+
+      setUser({
+        ...newUser,
+        displayName: name,
+        photoURL: photoUrl,
+        accessToken: token,
+      });
 
       await saveUserToServer({
         name,
@@ -84,19 +93,16 @@ const SignUp = () => {
       </Helmet>
 
       <div className="w-full container flex flex-col lg:flex-row justify-around items-center gap-5">
-        {/* Lottie Animation */}
         <div className="w-full lg:w-1/3 mt-10 lg:mt-0 order-1 lg:order-2">
           <Lottie animationData={animation} loop />
         </div>
 
-        {/* Sign Up Form */}
         <div className="bg-base-100 p-8 lg:mt-16 rounded-xl shadow-2xl w-full max-w-md order-2 lg:order-1">
           <h2 className="text-2xl font-bold text-primary mb-6 text-center">
             Sign Up Now!
           </h2>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            {/* Name */}
             <div className="form-control">
               <label className="text-sm font-medium text-text mb-1 block">
                 Name
@@ -114,7 +120,6 @@ const SignUp = () => {
               )}
             </div>
 
-            {/* Photo URL */}
             <div className="form-control">
               <label className="text-sm font-medium text-text mb-1 block">
                 Photo URL
@@ -134,7 +139,6 @@ const SignUp = () => {
               )}
             </div>
 
-            {/* Email */}
             <div className="form-control">
               <label className="text-sm font-medium text-text mb-1 block">
                 Email
@@ -152,7 +156,6 @@ const SignUp = () => {
               )}
             </div>
 
-            {/* Password */}
             <div className="form-control">
               <label className="text-sm font-medium text-text mb-1 block">
                 Password

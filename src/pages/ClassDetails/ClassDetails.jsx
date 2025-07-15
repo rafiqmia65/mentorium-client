@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams, useNavigate } from "react-router"; // react-router-dom থেকে ইম্পোর্ট করুন
+import { useParams, useNavigate } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import {
   FaChalkboardTeacher,
@@ -22,7 +22,7 @@ const ClassDetails = () => {
   const { id: classId } = useParams();
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
-  const { user } = useAuth(); // বর্তমান ব্যবহারকারীর তথ্য পেতে useAuth ব্যবহার করুন
+  const { user } = useAuth();
 
   const [showFullDescription, setShowFullDescription] = useState(false);
 
@@ -66,10 +66,12 @@ const ClassDetails = () => {
     queryKey: ["enrolledClasses", user?.email],
     queryFn: async () => {
       if (!user?.email) return [];
-      const res = await axiosSecure.get(`/users/${user.email}/enrolled-classes`);
+      const res = await axiosSecure.get(
+        `/users/${user.email}/enrolled-classes`
+      );
       return res.data.data;
     },
-    enabled: !!user?.email, // Only fetch if user email is available
+    enabled: !!user?.email,
   });
 
   // Determine if the current user is already enrolled in this class
@@ -77,14 +79,17 @@ const ClassDetails = () => {
     (enrolledClass) => enrolledClass._id === classId
   );
 
-  if (classLoading || feedbacksLoading || enrolledClassesLoading) return <Loader />;
+  if (classLoading || feedbacksLoading || enrolledClassesLoading)
+    return <Loader />;
 
   if (classError || feedbacksError || enrolledClassesError) {
     return (
       <div className="min-h-screen p-6 bg-neutral flex justify-center items-center">
         <p className="text-red-500 text-center text-lg">
           Error loading class details or feedbacks:{" "}
-          {classFetchError?.message || feedbacksFetchError?.message || enrolledClassesFetchError?.message}
+          {classFetchError?.message ||
+            feedbacksFetchError?.message ||
+            enrolledClassesFetchError?.message}
         </p>
       </div>
     );
@@ -116,10 +121,10 @@ const ClassDetails = () => {
     },
   };
 
-  const instructor = classDetails.instructor; // Instructor details are now nested under classDetails.instructor
+  const instructor = classDetails.instructor;
 
   // Description truncation logic
-  const descriptionLimit = 200; // Character limit for description
+  const descriptionLimit = 200;
   const truncatedDescription =
     classDetails.description?.length > descriptionLimit
       ? classDetails.description.substring(0, descriptionLimit) + "..."
@@ -295,10 +300,8 @@ const ClassDetails = () => {
           {/* Enrollment Details */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             {" "}
-            {/* Adjusted to 3 columns for stats */}
             <div className="flex items-center bg-blue-50 text-blue-800 rounded-lg p-4 shadow-sm">
               {" "}
-              {/* Color added */}
               <div className="p-2 rounded-full bg-blue-100 mr-3">
                 <FaDollarSign className="text-blue-600" />
               </div>
@@ -311,7 +314,6 @@ const ClassDetails = () => {
             </div>
             <div className="flex items-center bg-green-50 text-green-800 rounded-lg p-4 shadow-sm">
               {" "}
-              {/* Color added */}
               <div className="p-2 rounded-full bg-green-100 mr-3">
                 <FaUsers className="text-green-600" />
               </div>
@@ -324,19 +326,12 @@ const ClassDetails = () => {
             </div>
             <div className="flex items-center bg-yellow-50 text-yellow-800 rounded-lg p-4 shadow-sm">
               {" "}
-              {/* Color added */}
               <div className="p-2 rounded-full bg-yellow-100 mr-3">
                 <FaChair className="text-yellow-600" />
               </div>
               <div>
                 <p className="text-sm text-yellow-700">Available Seats</p>
-                <p
-                  className={`font-medium ${
-                    // classDetails.availableSeats <= 0 ? "text-red-500" : "" // Removed this line
-                    "" // No longer checking availableSeats for red text
-                  }`}
-                >
-                  {/* Display available seats if it's still a relevant metric, otherwise remove */}
+                <p className={`font-medium`}>
                   {classDetails.availableSeats} available
                 </p>
               </div>
@@ -346,7 +341,6 @@ const ClassDetails = () => {
           {/* What you'll learn */}
           <div className="bg-purple-50 text-purple-800 rounded-lg p-6 mb-8 shadow-sm">
             {" "}
-            {/* Color added */}
             <h3 className="font-semibold text-purple-900 mb-3 text-xl">
               What you'll learn
             </h3>
@@ -363,7 +357,7 @@ const ClassDetails = () => {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={handleEnroll}
-            disabled={isUserAlreadyEnrolled} // Only disable if user is already enrolled
+            disabled={isUserAlreadyEnrolled}
             className={`w-full py-3 px-6 rounded-xl cursor-pointer font-bold text-white transition-all ${
               isUserAlreadyEnrolled
                 ? "bg-gray-400 cursor-not-allowed"
@@ -419,7 +413,7 @@ const ClassDetails = () => {
                         className="w-full h-full object-cover"
                         onError={(e) => {
                           e.target.src =
-                            "https://img.icons8.com/?size=100&id=124204&format=png&color=000000"; // Fallback
+                            "https://img.icons8.com/?size=100&id=124204&format=png&color=000000";
                         }}
                       />
                     </div>

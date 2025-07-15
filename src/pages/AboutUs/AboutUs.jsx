@@ -7,7 +7,7 @@ import {
   FaHeart,
   FaBookOpen,
   FaGlobe,
-} from "react-icons/fa"; // Import icons
+} from "react-icons/fa";
 import { Link } from "react-router";
 
 const AboutUs = () => {
@@ -43,7 +43,7 @@ const AboutUs = () => {
         <div className="absolute inset-0 z-0 opacity-70">
           {/* Background pattern or subtle image */}
           <img
-            src="https://i.ibb.co/BV9WVDtM/ai-generated-8225400-1280.png" // Placeholder for an abstract pattern
+            src="https://i.ibb.co/BV9WVDtM/ai-generated-8225400-1280.png"
             alt="Background Pattern"
             className="w-full h-full object-cover"
             onError={(e) => {
@@ -147,7 +147,7 @@ const AboutUs = () => {
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <motion.div variants={itemVariants}>
             <img
-              src="https://placehold.co/600x400/FF5733/FFFFFF?text=Our+Story" // Placeholder image for the story
+              src="https://placehold.co/600x400/FF5733/FFFFFF?text=Our+Story"
               alt="Our Story"
               className="rounded-2xl shadow-xl w-full h-auto object-cover"
               onError={(e) => {

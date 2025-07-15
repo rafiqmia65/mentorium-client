@@ -12,7 +12,6 @@ const useAxiosSecure = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Add request interceptor
     const requestInterceptor = axiosSecure.interceptors.request.use(
       (config) => {
         if (user?.accessToken) {
@@ -25,7 +24,6 @@ const useAxiosSecure = () => {
       }
     );
 
-    // Add response interceptor
     const responseInterceptor = axiosSecure.interceptors.response.use(
       (response) => response,
       (error) => {
@@ -39,7 +37,6 @@ const useAxiosSecure = () => {
       }
     );
 
-    // Cleanup interceptors when component unmounts
     return () => {
       axiosSecure.interceptors.request.eject(requestInterceptor);
       axiosSecure.interceptors.response.eject(responseInterceptor);

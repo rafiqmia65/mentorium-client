@@ -37,8 +37,6 @@ const TeacherClassDetails = () => {
     useQuery({
       queryKey: ["totalEnrollments", classId],
       queryFn: async () => {
-        // Assuming classDetails.totalEnrolled is kept updated on enrollment
-        // If not, you might need a dedicated backend route like /enrollments/count/:classId
         return classDetails?.totalEnrolled || 0;
       },
       enabled: !!classDetails,

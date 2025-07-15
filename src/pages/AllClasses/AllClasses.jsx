@@ -19,10 +19,8 @@ const AllClasses = () => {
   } = useQuery({
     queryKey: ["allClasses"],
     queryFn: async () => {
-      console.log("Fetching allClasses...");
       try {
         const res = await axiosSecure.get("/allClasses");
-        console.log("AllClasses fetched successfully:", res.data.data);
         return res.data.data;
       } catch (err) {
         console.error(

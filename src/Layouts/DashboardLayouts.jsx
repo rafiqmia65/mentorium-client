@@ -13,7 +13,7 @@ const DashboardLayouts = () => {
   const toggleDrawer = () => setIsDrawerOpen(!isDrawerOpen);
   const closeDrawer = () => setIsDrawerOpen(false);
 
-  // 🛑 Loader while role is fetching
+  // Loader while role is fetching
   if (roleLoading) {
     return <Loader></Loader>;
   }

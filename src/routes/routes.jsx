@@ -59,9 +59,8 @@ export const router = createBrowserRouter([
           </PrivateRoutes>
         ),
       },
-      // --- নতুন রুট: পেমেন্ট পেজ ---
       {
-        path: "payment/:id", // :id দিয়ে ক্লাস ID নেওয়া হবে
+        path: "payment/:id",
         element: (
           <PrivateRoutes>
             <PaymentPage />

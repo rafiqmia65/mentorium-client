@@ -30,7 +30,6 @@ const PaymentPage = () => {
         const res = await axiosSecure.get(`/class/${id}`);
         return res.data.data;
       } catch (err) {
-        console.error("Error fetching class info:", err);
         if (err.response?.status === 401 || err.response?.status === 403) {
           navigate("/login", { state: { from: location }, replace: true });
         }
@@ -121,7 +120,7 @@ const PaymentPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-neutral py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-neutral py-8 pt-30 px-4 sm:px-6 lg:px-8">
       <div className="max-w-2xl mx-auto bg-base-100 rounded-xl shadow-md p-8">
         <h2 className="text-2xl font-bold text-primary mb-6">
           Complete Your Enrollment

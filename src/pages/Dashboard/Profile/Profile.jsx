@@ -28,9 +28,7 @@ const Profile = () => {
     queryKey: ["userProfile", user?.email],
     queryFn: async () => {
       if (!user?.email) return {};
-      console.log("Fetching user profile for:", user.email);
       const res = await axiosSecure.get(`/users/${user.email}`);
-      console.log("User profile data:", res.data.data);
       return res.data.data;
     },
     enabled: !!user?.email && !authLoading,
@@ -74,7 +72,7 @@ const Profile = () => {
               className="w-full h-full object-cover"
               onError={(e) => {
                 e.target.src =
-                  "https://img.icons8.com/?size=100&id=124204&format=png&color=000000"; // Fallback image
+                  "https://img.icons8.com/?size=100&id=124204&format=png&color=000000"; 
               }}
             />
           </div>

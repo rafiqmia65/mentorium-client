@@ -14,12 +14,14 @@ const GoogleAuth = () => {
     try {
       const result = await googleAuth();
       const newUser = result.user;
+      const token = await newUser.getIdToken();
 
-      // Check if user exists in DB
+      localStorage.setItem("access-token", token);
+
       const { data } = await axiosSecure.get(`/users/${newUser.email}`);
 
       if (!data.data) {
-        // New user, add to database with role: student
+        // New user → save to DB
         const saveUser = {
           name: newUser.displayName,
           email: newUser.email,
@@ -27,16 +29,16 @@ const GoogleAuth = () => {
           role: "student",
           createdAt: new Date(),
         };
-
         await axiosSecure.post("/users", saveUser);
       }
+
+      setUser({ ...newUser, accessToken: token });
 
       Swal.fire({
         title: `${newUser.displayName}, you are successfully Logged In`,
         icon: "success",
       });
 
-      setUser(newUser);
       navigate(location.state?.from || "/");
     } catch (error) {
       Swal.fire({

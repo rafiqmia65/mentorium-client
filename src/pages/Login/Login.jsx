@@ -8,32 +8,38 @@ import Lottie from "lottie-react";
 import animation from "../../assets/authAnimation.json";
 
 const Login = () => {
-  const { login } = useAuth();
+  const { login, setUser } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
 
-    login(email, password)
-      .then((result) => {
-        const loginUser = result.user;
-        Swal.fire({
-          title: `${loginUser.displayName}, you are successfully logged in!`,
-          icon: "success",
-        });
-        navigate(`${location.state ? location.state : "/"}`);
-      })
-      .catch((error) => {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: error.message,
-        });
+    try {
+      const result = await login(email, password);
+      const loginUser = result.user;
+
+      const token = await loginUser.getIdToken();
+
+      localStorage.setItem("access-token", token);
+
+      setUser({ ...loginUser, accessToken: token });
+
+      Swal.fire({
+        title: `${loginUser.displayName}, you are successfully logged in!`,
+        icon: "success",
       });
+      navigate(location.state || "/");
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: error.message,
+      });
+    }
   };
 
   return (
@@ -43,7 +49,7 @@ const Login = () => {
       </Helmet>
 
       <div className="w-full container flex flex-col lg:flex-row justify-around items-center gap-5">
-        {/* Lottie Animation - on top in mobile/tablet, right in desktop */}
+        {/* Lottie Animation */}
         <div className="w-1/3 mt-10 lg:mt-0 lg:w-1/3 order-1 lg:order-2">
           <Lottie animationData={animation} loop={true} />
         </div>

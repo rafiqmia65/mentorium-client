@@ -13,7 +13,7 @@ const UpdateClassModal = ({
   const uploadPreset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
   const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
 
-  // ✅ Cloudinary image upload
+  //  Cloudinary image upload
   const imageUploadMutation = useMutation({
     mutationFn: async (imageFile) => {
       const formData = new FormData();
@@ -42,7 +42,7 @@ const UpdateClassModal = ({
     },
   });
 
-  // ✅ PATCH mutation for updating class
+  //  PATCH mutation for updating class
   const updateClassMutation = useMutation({
     mutationFn: async (classData) => {
       const res = await fetch(

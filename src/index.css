@@ -5,41 +5,40 @@
 @plugin "daisyui/theme" {
   name: "light";
   default: true;
-  --color-primary: #155dfc; /* Deep Blue */
-  --color-secondary: #00c49a; /* Teal Green */
-  --color-accent: #ffa500; /* Soft Orange */
-  --color-neutral: #dbeafe; 
-  --color-base-100: #dbeafe; /* Card / Surface Background */
+  --color-primary: #155dfc;
+  --color-secondary: #00c49a;
+  --color-accent: #ffa500;
+  --color-neutral: #dbeafe;
+  --color-base-100: #dbeafe;
   --color-info: #3abff8;
   --color-success: #36d399;
   --color-warning: #fbbd23;
   --color-error: #f87272;
   --color-text: #1e2939;
-  --color-text-secondary: #475569; /* Soft Gray */
-  --color-primary-content: #0b3fb1; 
+  --color-text-secondary: #475569;
+  --color-primary-content: #0b3fb1;
 }
 
 @plugin "daisyui/theme" {
   name: "dark";
   default: false;
-  --color-primary: #00d1ff; /* Aqua Blue */
-  --color-secondary: #00c49a; /* Teal Green */
-  --color-accent: #ffc857; /* Warm Yellow/Orange */
-  --color-neutral: #111827; /* Dark Gray Background */
-  --color-base-100: #1f2937; /* Card / Surface Background */
+  --color-primary: #00d1ff;
+  --color-secondary: #00c49a;
+  --color-accent: #ffc857;
+  --color-neutral: #111827;
+  --color-base-100: #1f2937;
   --color-info: #3abff8;
   --color-success: #36d399;
   --color-warning: #fbbd23;
   --color-error: #f87272;
-  --color-text: #f3f4f6; /* Light Gray for Text */
-  --color-primary-content: #00a6cc; /* Darker Aqua */
+  --color-text: #f3f4f6;
+  --color-primary-content: #00a6cc;
 }
 
 * {
   font-family: "Poppins", sans-serif;
 }
 
-a.active{
+a.active {
   color: #0066ff;
 }
-

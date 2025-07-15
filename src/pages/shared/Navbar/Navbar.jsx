@@ -12,6 +12,8 @@ const Navbar = () => {
   const handleLogOut = () => {
     logOut()
       .then(() => {
+        localStorage.removeItem("access-token");
+
         Swal.fire({
           title: `You are successfully LogOut`,
           text: "You clicked the button!",
@@ -163,7 +165,7 @@ const Navbar = () => {
                     {user.displayName || "User"}
                   </li>
                   <li>
-                    <Link to="/dashboard">Dashboard</Link>
+                    <Link to="/dashboard/profile">Dashboard</Link>
                   </li>
                   <li>
                     <button onClick={handleLogOut}>Logout</button>

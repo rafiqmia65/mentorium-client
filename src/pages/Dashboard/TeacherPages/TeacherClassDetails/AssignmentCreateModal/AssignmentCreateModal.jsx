@@ -24,10 +24,10 @@ const AssignmentCreateModal = ({ classId, onClose }) => {
     },
     onSuccess: () => {
       Swal.fire("Added!", "Assignment has been added successfully.", "success");
-      reset(); // Reset the form after successful submission
-      onClose(); // Close the modal
-      queryClient.invalidateQueries(["totalAssignments", classId]); // Invalidate to refetch assignment count
-      queryClient.invalidateQueries(["assignments", classId]); // Invalidate to refetch assignment list (if shown elsewhere)
+      reset(); 
+      onClose(); 
+      queryClient.invalidateQueries(["totalAssignments", classId]);
+      queryClient.invalidateQueries(["assignments", classId]);
     },
     onError: (err) => {
       Swal.fire(
@@ -52,7 +52,7 @@ const AssignmentCreateModal = ({ classId, onClose }) => {
       teacherEmail: user.email,
       title: data.title,
       description: data.description,
-      deadline: data.deadline, // Ensure this is a valid date string (YYYY-MM-DD)
+      deadline: data.deadline, 
     };
     addAssignmentMutation.mutate(assignmentPayload);
   };

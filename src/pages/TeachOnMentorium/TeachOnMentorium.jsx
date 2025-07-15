@@ -23,7 +23,7 @@ const TeachOnMentorium = () => {
       if (!user?.email) return null;
       try {
         const res = await axiosSecure.get(`/users/${user?.email}`);
-        return res.data.data; // Assuming res.data.data contains the full user object
+        return res.data.data;
       } catch (err) {
         if (err.response && err.response.status === 404) {
           return null;
@@ -31,7 +31,7 @@ const TeachOnMentorium = () => {
         throw err;
       }
     },
-    enabled: !!user?.email, // Only run query if user email is available
+    enabled: !!user?.email,
 
     staleTime: 0,
     cacheTime: 0,
