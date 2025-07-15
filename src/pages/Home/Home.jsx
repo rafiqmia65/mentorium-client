@@ -7,6 +7,7 @@ import BecomeInstructor from "./BecomeInstructor/BecomeInstructor";
 import PopularClasses from "./PopularClasses/PopularClasses";
 import FeedbackSection from "./FeedbackSection/FeedbackSection";
 import StatsSection from "./StatsSection/StatsSection";
+import UsersList from "./PaginationSection/UsersList";
 
 const Home = () => {
   return (
@@ -19,6 +20,7 @@ const Home = () => {
       <BecomeInstructor></BecomeInstructor>
       <FeedbackSection></FeedbackSection>
       <PartnersSection></PartnersSection>
+      <UsersList></UsersList>
     </div>
   );
 };
