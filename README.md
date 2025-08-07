@@ -94,7 +94,7 @@ mentorium-client/
 ### 🖥 Client Setup
 
 ```bash
-git clone https://github.com/your-username/mentorium.git
+git clone https://github.com/rafiqmia65/mentorium-client.git
 npm install
 npm run dev
 ```
@@ -104,7 +104,7 @@ npm run dev
 
 
 ```bash
-git clone https://github.com/your-username/mentorium-server.git
+git clone https://github.com/rafiqmia65/mentorium-server.git
 npm install
 npm run dev
 ```
