@@ -15,7 +15,6 @@ const MyClasses = () => {
   const [selectedClass, setSelectedClass] = useState(null);
   const [updatedData, setUpdatedData] = useState({});
 
-  // Fetch My Classes
   const {
     data: myClasses = [],
     isLoading,
@@ -31,26 +30,6 @@ const MyClasses = () => {
     enabled: !!user?.email,
   });
 
-  // Update Mutation
-  const updateClassMutation = useMutation({
-    mutationFn: async ({ id, data }) => {
-      if (!data.title || !data.price || !data.description || !data.image) {
-        throw new Error("Please fill all fields and upload an image.");
-      }
-      const res = await axiosSecure.patch(`/my-classes/${id}`, data);
-      return res.data;
-    },
-    onSuccess: () => {
-      Swal.fire("Updated!", "Class updated successfully.", "success");
-      setSelectedClass(null);
-      refetch();
-    },
-    onError: (error) => {
-      Swal.fire("Error!", error.message || "Failed to update class.", "error");
-    },
-  });
-
-  // Delete Mutation
   const deleteClassMutation = useMutation({
     mutationFn: async (id) => {
       const res = await axiosSecure.delete(`/my-classes/${id}`);
@@ -64,13 +43,6 @@ const MyClasses = () => {
       Swal.fire("Error!", "Failed to delete class.", "error");
     },
   });
-
-  const handleUpdateSubmit = (e) => {
-    e.preventDefault();
-    if (!selectedClass) return;
-
-    updateClassMutation.mutate({ id: selectedClass._id, data: updatedData });
-  };
 
   if (isLoading) return <Loader />;
   if (isError) return <p className="text-red-500">{error.message}</p>;
@@ -93,15 +65,9 @@ const MyClasses = () => {
               className="w-full h-48 object-cover rounded-lg"
             />
             <h2 className="text-xl font-semibold">{cls.title}</h2>
-            <p>
-              <strong>Name:</strong> {cls.name}
-            </p>
-            <p>
-              <strong>Email:</strong> {cls.email}
-            </p>
-            <p>
-              <strong>Price:</strong> ${cls.price}
-            </p>
+            <p><strong>Name:</strong> {cls.name}</p>
+            <p><strong>Email:</strong> {cls.email}</p>
+            <p><strong>Price:</strong> ${cls.price}</p>
             <p>
               <strong>Status:</strong>{" "}
               <span
@@ -114,7 +80,6 @@ const MyClasses = () => {
             </p>
 
             <div className="flex flex-wrap gap-2">
-              {/* Update: Open Modal */}
               <button
                 onClick={() => {
                   setSelectedClass(cls);
@@ -133,7 +98,6 @@ const MyClasses = () => {
                 Update
               </button>
 
-              {/* Delete */}
               <button
                 onClick={() =>
                   Swal.fire({
@@ -155,7 +119,6 @@ const MyClasses = () => {
                 Delete
               </button>
 
-              {/* See Details */}
               <button
                 onClick={() => navigate(`/dashboard/teacherClassDetails/${cls._id}`)}
                 className="btn btn-sm btn-secondary"
@@ -168,15 +131,14 @@ const MyClasses = () => {
         ))}
       </div>
 
-      {/* Update Class Modal */}
+      {/* Update Modal */}
       {selectedClass && (
         <UpdateClassModal
           selectedClass={selectedClass}
           updatedData={updatedData}
           setUpdatedData={setUpdatedData}
-          onUpdateSubmit={handleUpdateSubmit}
-          isPending={updateClassMutation.isLoading}
           onClose={() => setSelectedClass(null)}
+          refetch={refetch} 
         />
       )}
     </div>

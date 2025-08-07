@@ -1,19 +1,22 @@
 import React, { useEffect, useRef } from "react";
 import { useMutation } from "@tanstack/react-query";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../../../../Hook/useAxiosSecure";
 
 const UpdateClassModal = ({
   selectedClass,
   updatedData,
   setUpdatedData,
   onClose,
+  refetch,
 }) => {
   const dialogRef = useRef();
+  const axiosSecure = useAxiosSecure();
 
   const uploadPreset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
   const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
 
-  //  Cloudinary image upload
+  // Cloudinary image upload
   const imageUploadMutation = useMutation({
     mutationFn: async (imageFile) => {
       const formData = new FormData();
@@ -42,40 +45,37 @@ const UpdateClassModal = ({
     },
   });
 
-  //  PATCH mutation for updating class
+  // PATCH class
   const updateClassMutation = useMutation({
     mutationFn: async (classData) => {
-      const res = await fetch(
-        `http://localhost:3000/my-classes/${selectedClass._id}`,
-        {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(classData),
-        }
+      const res = await axiosSecure.patch(
+        `/my-classes/${selectedClass._id}`,
+        classData
       );
-
-      if (!res.ok) {
-        const errData = await res.json().catch(() => null);
-        throw new Error(errData?.message || `Update failed: ${res.status}`);
-      }
-
-      return res.json();
+      return res.data;
     },
     onSuccess: () => {
       Swal.fire("Updated!", "Class updated successfully!", "success");
+      refetch();
       dialogRef.current.close();
       onClose();
     },
     onError: (err) => {
-      Swal.fire("Error", err.message || "Update failed.", "error");
+      Swal.fire(
+        "Error",
+        err.response?.data?.message || err.message || "Update failed.",
+        "error"
+      );
     },
   });
 
+  // Handle input change
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUpdatedData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // Handle image upload
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -87,6 +87,7 @@ const UpdateClassModal = ({
     }
   };
 
+  // Submit form
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -101,6 +102,7 @@ const UpdateClassModal = ({
     updateClassMutation.mutate(payload);
   };
 
+  // Initialize modal
   useEffect(() => {
     if (dialogRef.current) {
       dialogRef.current.showModal();

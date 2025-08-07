@@ -1,6 +1,12 @@
 # 🎓 Mentorium - Empowering Learning, Enabling Teaching
 
-Mentorium is a MERN stack-based online education platform where students can explore high-quality classes, teachers can manage their offerings, and admins can oversee the entire learning ecosystem. It ensures a smooth and secure learning experience with role-based dashboards and payment support.
+![React](https://img.shields.io/badge/React-18.x-blue)
+![Tailwind](https://img.shields.io/badge/TailwindCSS-Styled-blueviolet)
+![Firebase](https://img.shields.io/badge/Firebase-Auth-yellow)
+![Stripe](https://img.shields.io/badge/Stripe-Payments-blue)
+![License: MIT](https://img.shields.io/badge/License-MIT-green)
+
+Mentorium is a **full-featured MERN stack** online education platform where **students** can enroll in classes, **teachers** can manage their offerings, and **admins** control and maintain the ecosystem via secure role-based access.
 
 ---
 
@@ -15,134 +21,142 @@ Mentorium is a MERN stack-based online education platform where students can exp
 - **Email:** `admin@gmail.com`
 - **Password:** `Admin123`
 
-> ⚠️ For demo/testing purposes only. Do not misuse.
+> ⚠️ For demo/testing purposes only.
 
 ---
 
-## 🚀 Key Features
+## 🚀 Features at a Glance
 
-- 🔐 Firebase Authentication (Email/Password & Google Login)
-- 🔁 JWT-based secure API communication
+- 🔐 Firebase Authentication (Email & Google)
+- 🔁 JWT-secured communication with server
 - 🧑‍💼 Role-based Dashboard: Student | Teacher | Admin
 - 📝 Teacher Application & Approval Workflow
-- 📚 Full Class Lifecycle: Create, Update, Delete, Approve
-- 💳 Stripe Integration for Secure Payments
-- 🧑‍🎓 Student Enrollment, Feedback & Assignment Flow
-- 📈 Admin Dashboard with Real-Time Stats
-- ☁️ Cloudinary Integration for Image Uploads
-- 🌗 Light/Dark Theme Toggle with Persistence
-- 🔍 Server-side Search on Users (Admin Panel)
-- 📦 Modular React Codebase with Reusable Components
+- 📚 Class Management (Create, Update, Delete, Approve)
+- 💳 Stripe Payment Integration
+- 🧑‍🎓 Student Enrollment, Feedback & Assignments
+- 📊 Admin Dashboard with Real-time Stats
+- ☁️ Cloudinary for Image Uploads
+- 🌙 Light/Dark Mode Toggle
+- 🔍 Search and Filter (Admin Panel)
+- 🎨 Modular, Maintainable React Architecture
+
+---
+
+## 🧑‍💻 Folder Structure (Client)
+
+```
+mentorium-client/
+├── public/
+├── src/
+│   ├── assets/
+│   ├── Firebase/
+│   ├── Hook/
+│   ├── Layouts/
+│   ├── pages/
+│   │   ├── AboutUs/
+│   │   ├── AllClasses/
+│   │   ├── ClassDetails/
+│   │   ├── Dashboard/
+│   │   │   ├── AdminPages/
+│   │   │   ├── StudentPages/
+│   │   │   └── TeacherPages/
+│   │   ├── Profile/
+│   │   ├── Login/
+│   │   ├── SignUp/
+│   │   └── ErrorPage/
+│   ├── provider/
+│   ├── routes/
+│   ├── shared/
+│   ├── App.jsx
+│   ├── main.jsx
+└── ...
+```
 
 ---
 
 ## 📦 Tech Stack
 
-| Category       | Tools & Technologies                          |
-| -------------- | --------------------------------------------- |
-| Frontend       | React.js, Tailwind CSS, DaisyUI               |
-| State/Data     | TanStack Query (React Query), React Hook Form |
-| Backend        | Node.js, Express.js                           |
-| Database       | MongoDB (Mongoose ODM)                        |
-| Authentication | Firebase Auth + Firebase Admin SDK            |
-| Payment        | Stripe.js + React Stripe                      |
-| Image Upload   | Cloudinary API                                |
-| Alerts & UX    | SweetAlert2, Framer Motion, Lottie            |
+| Category       | Technologies                                |
+|----------------|---------------------------------------------|
+| Frontend       | React.js, Tailwind CSS, DaisyUI             |
+| State/Data     | React Query, React Hook Form                |
+| Backend API    | Node.js, Express.js (mentorium-server)      |
+| Database       | MongoDB (via Mongoose)                      |
+| Auth           | Firebase Authentication                     |
+| Payments       | Stripe API                                  |
+| Images         | Cloudinary API                              |
+| UX/UI          | SweetAlert2, Framer Motion, Lottie          |
 
 ---
 
-## ⚙️ Installation & Setup Instructions
-
-### 🔧 Prerequisites
-
-- Node.js ≥ 18.x
-- MongoDB Atlas URI or Local MongoDB
-- Firebase Project with Admin SDK (base64)
-- Stripe Test Keys
+## ⚙️ Setup Instructions
 
 ### 🖥 Client Setup
 
 ```bash
 git clone https://github.com/your-username/mentorium.git
-cd mentorium-client
 npm install
 npm run dev
 ```
 
 ### 🛠 Server Setup
+---
+
 
 ```bash
-cd ../mentorium-server
+git clone https://github.com/your-username/mentorium-server.git
 npm install
+npm run dev
 ```
 
-Create `.env` file in `mentorium-server`:
-
-```
-PORT=3000
-MONGODB_URI=your_mongodb_uri
-FB_SERVICE_KEY=base64_encoded_firebase_admin_sdk_json
-```
-
-Then run:
-
-```bash
-nodemon index.js
-```
-
-> Now your app should be running at `http://localhost:5173` and server at `http://localhost:3000`
+> Uses `nodemon` for development.
 
 ---
 
-## 🧑‍💻 User Roles & Access
+> Client: `http://localhost:5173` | Server: `http://localhost:3000`
+
+---
+
+## 👥 User Roles & Permissions
 
 ### 👤 Student
 
-- Explore and enroll in approved classes
-- Submit assignments and provide feedback
-- Apply to become a teacher
+- Enroll in classes
+- Submit assignments and give feedback
 
 ### 👩‍🏫 Teacher
 
-- Create, update, delete their own classes
-- Monitor student enrollments and progress
+- Manage their own classes and view student info
 
 ### 👨‍💼 Admin
 
-- Approve/reject teacher applications & classes
-- Manage users, classes, and reviews
-- View dashboard statistics
+- Approve teachers and classes
+- Manage all users and feedback
+- Access platform analytics
 
 ---
 
-## 🧪 How to Use the App
+## 🧪 Workflow Overview
 
-1. **Sign Up** using Email/Password or Google
-2. **Apply** as Teacher through "Teach on Mentorium"
-3. **Admin Reviews** and approves application
-4. **Teacher Creates** and manages their classes
-5. **Student Enrolls** and interacts via class dashboard
-6. **Admin/Teachers Monitor** class performance and feedback
-
----
-
-## 📸 Screenshots
-
-> You can add screenshots in a `/screenshots` folder and display here like:
-
-```md
-![Homepage](./screenshots/home.png)
-![Dashboard](./screenshots/dashboard.png)
-```
+1. Sign up as Student or Teacher
+2. Apply to become Teacher (if applicable)
+3. Admin approves/rejects request
+4. Teachers manage their classes
+5. Students enroll, pay, and learn
+6. Admin oversees entire platform
 
 ---
 
-## 🙋‍♂️ Developer Info
 
-- **Name:** Md Rafiq Mia
-- **GitHub:** [@your-username](https://github.com/rafiqmia65)
-- **Portfolio:** [your-portfolio-link](https://rafiqmia.netlify.app/)
-- **LinkedIn:** [your-linkedin-profile](https://www.linkedin.com/in/rafiqmia65/)
+
+---
+
+## 👨‍💻 Developer Info
+
+- **👤 Name:** Md Rafiq Mia  
+- **🌐 Portfolio:** [rafiqmia.netlify.app](https://rafiqmia.netlify.app/)  
+- **💼 LinkedIn:** [rafiqmia65](https://www.linkedin.com/in/rafiqmia65/)  
+- **📁 GitHub:** [rafiqmia65](https://github.com/rafiqmia65)  
 
 ---
 

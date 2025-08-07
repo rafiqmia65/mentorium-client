@@ -34,7 +34,7 @@ const Users = () => {
     queryKey: ["allUsers", search],
     queryFn: async () => {
       const res = await axiosSecure.get(`/allUsers?search=${search}`);
-      return res.data;
+      return res.data.data;
     },
     enabled: true,
   });
