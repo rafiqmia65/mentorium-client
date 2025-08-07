@@ -20,7 +20,7 @@ const AdminAllClasses = () => {
     queryKey: ["adminAllClasses"],
     queryFn: async () => {
       const res = await axiosSecure.get("/admin/all-classes");
-      return res.data.data;
+      return res.data; 
     },
   });
 
