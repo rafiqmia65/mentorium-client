@@ -24,6 +24,7 @@ import TeacherClassDetails from "../pages/Dashboard/TeacherPages/TeacherClassDet
 import Profile from "../pages/Dashboard/Profile/Profile";
 import AdminClassProgress from "../pages/Dashboard/AdminPages/AdminClassProgress/AdminClassProgress";
 import AboutUs from "../pages/AboutUs/AboutUs";
+import Dashboard from "../pages/Dashboard/Dashboard";
 
 export const router = createBrowserRouter([
   {
@@ -85,6 +86,14 @@ export const router = createBrowserRouter([
       </PrivateRoutes>
     ),
     children: [
+      {
+        path: "dashboard",
+        element: (
+          <PrivateRoutes>
+            <Dashboard></Dashboard>
+          </PrivateRoutes>
+        ),
+      },
       {
         path: "profile",
         element: (

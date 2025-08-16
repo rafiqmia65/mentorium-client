@@ -63,7 +63,7 @@ const Navbar = () => {
       {user && (
         <li>
           <NavLink
-            to="/dashboard/dashboard"
+            to="/dashboard/profile"
             className={({ isActive }) =>
               isActive ? "text-primary font-bold" : "text-text"
             }
@@ -175,7 +175,7 @@ const Navbar = () => {
                     {user.displayName || "User"}
                   </li>
                   <li>
-                    <Link to="/dashboard/dashboard">Dashboard</Link>
+                    <Link to="/dashboard/profile">Dashboard</Link>
                   </li>
                   <li>
                     <button onClick={handleLogOut}>Logout</button>

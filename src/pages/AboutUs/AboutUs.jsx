@@ -35,7 +35,7 @@ const AboutUs = () => {
     <div className="min-h-screen bg-neutral text-text font-inter">
       {/* Hero Section */}
       <motion.section
-        className="relative bg-gradient-to-r from-primary to-primary-content text-white py-24 px-4 sm:px-6 lg:px-8 overflow-hidden rounded-b-2xl shadow-lg"
+        className="relative bg-neutral text-text py-24 px-4 sm:px-6 lg:px-8 overflow-hidden rounded-b-2xl shadow-lg"
         variants={sectionVariants}
         initial="hidden"
         animate="visible"
@@ -54,13 +54,13 @@ const AboutUs = () => {
         </div>
         <div className="max-w-6xl mx-auto text-center relative z-10">
           <motion.h1
-            className="text-5xl sm:text-6xl font-extrabold mb-4 drop-shadow-lg"
+            className="text-5xl sm:text-6xl font-extrabold text-white mb-4 drop-shadow-lg"
             variants={itemVariants}
           >
             About Us
           </motion.h1>
           <motion.p
-            className="text-xl sm:text-2xl font-light max-w-3xl mx-auto leading-relaxed"
+            className="text-xl sm:text-2xl font-light max-w-3xl text-white mx-auto leading-relaxed"
             variants={itemVariants}
           >
             At Mentorium, we bridge the gap between knowledge and aspiration.
@@ -95,40 +95,40 @@ const AboutUs = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <motion.div
-            className="bg-gray-50 p-8 rounded-xl shadow-md text-center border-t-4 border-blue-500 hover:shadow-lg transition-shadow duration-300"
+            className="bg-neutral p-8 rounded-xl shadow-md text-center border-t-4 border-primary hover:shadow-lg transition-shadow duration-300"
             variants={itemVariants}
           >
-            <FaGraduationCap className="text-5xl text-blue-600 mx-auto mb-4" />
+            <FaGraduationCap className="text-5xl text-primary mx-auto mb-4" />
             <h3 className="text-2xl font-semibold text-secondary mb-2">
               Quality Education
             </h3>
-            <p className="text-gray-700">
+            <p className="text-text">
               We ensure that the quality of every course and instructor is of
               the highest standard, so students receive the best education.
             </p>
           </motion.div>
           <motion.div
-            className="bg-gray-50 p-8 rounded-xl shadow-md text-center border-t-4 border-green-500 hover:shadow-lg transition-shadow duration-300"
+            className="bg-neutral p-8 rounded-xl shadow-md text-center border-t-4 border-primary hover:shadow-lg transition-shadow duration-300"
             variants={itemVariants}
           >
-            <FaUsers className="text-5xl text-green-600 mx-auto mb-4" />
+            <FaUsers className="text-5xl text-primary mx-auto mb-4" />
             <h3 className="text-2xl font-semibold text-secondary mb-2">
               Community Building
             </h3>
-            <p className="text-gray-700">
+            <p className="text-text">
               We believe in fostering a supportive and inspiring learning
               community.
             </p>
           </motion.div>
           <motion.div
-            className="bg-gray-50 p-8 rounded-xl shadow-md text-center border-t-4 border-purple-500 hover:shadow-lg transition-shadow duration-300"
+            className="bg-neutral p-8 rounded-xl shadow-md text-center border-t-4 border-primary hover:shadow-lg transition-shadow duration-300"
             variants={itemVariants}
           >
-            <FaLightbulb className="text-5xl text-purple-600 mx-auto mb-4" />
+            <FaLightbulb className="text-5xl text-primary mx-auto mb-4" />
             <h3 className="text-2xl font-semibold text-secondary mb-2">
               Innovative Learning
             </h3>
-            <p className="text-gray-700">
+            <p className="text-text">
               We use modern technology to make the learning process more
               effective and engaging.
             </p>
@@ -176,7 +176,7 @@ const AboutUs = () => {
 
       {/* Our Values Section */}
       <motion.section
-        className="py-16 px-4 sm:px-6 lg:px-8 bg-base-100 rounded-2xl shadow-xl mx-auto max-w-6xl my-12"
+        className="py-16 px-4 sm:px-6 lg:px-8 rounded-2xl mx-auto max-w-6xl my-12"
         variants={sectionVariants}
         initial="hidden"
         whileInView="visible"
@@ -199,50 +199,48 @@ const AboutUs = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           <motion.div
-            className="flex flex-col items-center p-6 rounded-xl shadow-md bg-white hover:shadow-lg transition-shadow duration-300"
+            className="flex flex-col items-center p-6 rounded-xl shadow-md bg-base-100 hover:shadow-lg transition-shadow duration-300"
             variants={itemVariants}
           >
             <FaHeart className="text-5xl text-red-500 mb-4" />
-            <h3 className="text-xl font-semibold text-secondary mb-2">
-              Passion
-            </h3>
-            <p className="text-center text-gray-700">
+            <h3 className="text-xl font-semibold text-primary mb-2">Passion</h3>
+            <p className="text-center text-text">
               We feel a deep passion for learning and teaching.
             </p>
           </motion.div>
           <motion.div
-            className="flex flex-col items-center p-6 rounded-xl shadow-md bg-white hover:shadow-lg transition-shadow duration-300"
+            className="flex flex-col items-center p-6 rounded-xl shadow-md bg-base-100 hover:shadow-lg transition-shadow duration-300"
             variants={itemVariants}
           >
             <FaBookOpen className="text-5xl text-yellow-500 mb-4" />
-            <h3 className="text-xl font-semibold text-secondary mb-2">
+            <h3 className="text-xl font-semibold text-primary mb-2">
               Continuous Learning
             </h3>
-            <p className="text-center text-gray-700">
+            <p className="text-center text-text">
               We believe that learning has no end.
             </p>
           </motion.div>
           <motion.div
-            className="flex flex-col items-center p-6 rounded-xl shadow-md bg-white hover:shadow-lg transition-shadow duration-300"
+            className="flex flex-col items-center p-6 rounded-xl shadow-md bg-base-100 hover:shadow-lg transition-shadow duration-300"
             variants={itemVariants}
           >
             <FaUsers className="text-5xl text-teal-500 mb-4" />
-            <h3 className="text-xl font-semibold text-secondary mb-2">
+            <h3 className="text-xl font-semibold text-primary mb-2">
               Collaboration
             </h3>
-            <p className="text-center text-gray-700">
+            <p className="text-center text-text">
               By working together, we become stronger.
             </p>
           </motion.div>
           <motion.div
-            className="flex flex-col items-center p-6 rounded-xl shadow-md bg-white hover:shadow-lg transition-shadow duration-300"
+            className="flex flex-col items-center p-6 rounded-xl shadow-md bg-base-100 hover:shadow-lg transition-shadow duration-300"
             variants={itemVariants}
           >
             <FaGlobe className="text-5xl text-indigo-500 mb-4" />
-            <h3 className="text-xl font-semibold text-secondary mb-2">
+            <h3 className="text-xl font-semibold text-primary mb-2">
               Accessibility
             </h3>
-            <p className="text-center text-gray-700">
+            <p className="text-center text-text">
               Ensuring quality education for all.
             </p>
           </motion.div>
@@ -251,7 +249,7 @@ const AboutUs = () => {
 
       {/* Call to Action Section */}
       <motion.section
-        className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-secondary to-accent text-white text-center rounded-t-2xl shadow-lg"
+        className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-secondary/40 to-base-100 text-white text-center rounded-t-2xl shadow-lg"
         variants={sectionVariants}
         initial="hidden"
         whileInView="visible"
