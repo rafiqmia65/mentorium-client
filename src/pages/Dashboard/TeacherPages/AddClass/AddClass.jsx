@@ -4,6 +4,12 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
 import useAxiosSecure from "../../../../Hook/useAxiosSecure";
 import useAuth from "../../../../Hook/useAuth";
+import {
+  FaChalkboardTeacher,
+  FaDollarSign,
+  FaImage,
+  FaInfoCircle,
+} from "react-icons/fa";
 
 const uploadPreset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
@@ -20,10 +26,22 @@ const AddClass = () => {
     imageFile: null,
   });
 
+  const [imagePreview, setImagePreview] = useState(null);
+
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     if (name === "imageFile") {
       setFormData((prev) => ({ ...prev, imageFile: files[0] }));
+      // Create image preview
+      if (files[0]) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setImagePreview(reader.result);
+        };
+        reader.readAsDataURL(files[0]);
+      } else {
+        setImagePreview(null);
+      }
     } else {
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
@@ -91,63 +109,144 @@ const AddClass = () => {
   };
 
   return (
-    <div className="pt-20 bg-neutral">
-      <h2 className="text-3xl font-bold text-center text-primary mb-6">
-        Add New Class
-      </h2>
-      <div className="max-w-2xl mx-auto bg-base-100 shadow-2xl p-10 rounded-2xl">
-        <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4">
-          <input
-            type="text"
-            name="title"
-            placeholder="Class Title"
-            className="input input-bordered w-full"
-            required
-            onChange={handleChange}
-          />
-          <input
-            type="text"
-            value={user?.displayName || ""}
-            className="input input-bordered w-full"
-            readOnly
-          />
-          <input
-            type="email"
-            value={user?.email || ""}
-            className="input input-bordered w-full"
-            readOnly
-          />
-          <input
-            type="number"
-            name="price"
-            placeholder="Price"
-            className="input input-bordered w-full"
-            required
-            onChange={handleChange}
-          />
-          <textarea
-            name="description"
-            placeholder="Class Description"
-            className="textarea textarea-bordered w-full"
-            required
-            onChange={handleChange}
-          ></textarea>
-          <input
-            type="file"
-            name="imageFile"
-            accept="image/*"
-            className="file-input file-input-bordered w-full"
-            required
-            onChange={handleChange}
-          />
-          <button
-            type="submit"
-            disabled={addClassMutation.isPending}
-            className="btn bg-primary text-white hover:bg-primary-content w-full"
-          >
-            {addClassMutation.isPending ? "Submitting..." : "Add Class"}
-          </button>
-        </form>
+    <div className="min-h-screen bg-neutral py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-10">
+          <h2 className="text-4xl font-bold text-primary mb-2">
+            Add New Class
+          </h2>
+          <p className="text-lg text-gray-600">
+            Fill out the form to create your new class
+          </p>
+        </div>
+
+        <div className="bg-base-100 rounded-xl shadow-xl overflow-hidden">
+          <div className="p-8">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Class Title */}
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text flex items-center">
+                    <FaChalkboardTeacher className="mr-2 text-primary" />
+                    Class Title
+                  </span>
+                </label>
+                <input
+                  type="text"
+                  name="title"
+                  placeholder="Enter class title"
+                  className="input input-bordered w-full focus:ring-2 focus:ring-primary"
+                  required
+                  onChange={handleChange}
+                />
+              </div>
+
+              {/* Instructor Info (readonly) */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Instructor Name</span>
+                  </label>
+                  <input
+                    type="text"
+                    value={user?.displayName || ""}
+                    className="input input-bordered w-full bg-gray-100"
+                    readOnly
+                  />
+                </div>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Instructor Email</span>
+                  </label>
+                  <input
+                    type="email"
+                    value={user?.email || ""}
+                    className="input input-bordered w-full bg-gray-100"
+                    readOnly
+                  />
+                </div>
+              </div>
+
+              {/* Price */}
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text flex items-center">
+                    <FaDollarSign className="mr-2 text-primary" />
+                    Price
+                  </span>
+                </label>
+                <input
+                  type="number"
+                  name="price"
+                  placeholder="Enter price in USD"
+                  className="input input-bordered w-full focus:ring-2 focus:ring-primary"
+                  required
+                  onChange={handleChange}
+                />
+              </div>
+
+              {/* Description */}
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text flex items-center">
+                    <FaInfoCircle className="mr-2 text-primary" />
+                    Class Description
+                  </span>
+                </label>
+                <textarea
+                  name="description"
+                  placeholder="Describe what students will learn in this class"
+                  className="textarea textarea-bordered w-full h-32 focus:ring-2 focus:ring-primary"
+                  required
+                  onChange={handleChange}
+                ></textarea>
+              </div>
+
+              {/* Image Upload */}
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text flex items-center">
+                    <FaImage className="mr-2 text-primary" />
+                    Class Image
+                  </span>
+                </label>
+                <input
+                  type="file"
+                  name="imageFile"
+                  accept="image/*"
+                  className="file-input file-input-bordered w-full focus:ring-2 focus:ring-primary"
+                  required
+                  onChange={handleChange}
+                />
+                {imagePreview && (
+                  <div className="mt-4">
+                    <p className="text-sm text-gray-500 mb-2">Image Preview:</p>
+                    <img
+                      src={imagePreview}
+                      alt="Class preview"
+                      className="h-40 object-cover rounded-lg border border-gray-200"
+                    />
+                  </div>
+                )}
+              </div>
+
+              {/* Submit Button */}
+              <div className="pt-4">
+                <button
+                  type="submit"
+                  disabled={addClassMutation.isPending}
+                  className={`btn btn-block bg-primary text-white hover:bg-primary-focus ${
+                    addClassMutation.isPending ? "loading" : ""
+                  }`}
+                >
+                  {addClassMutation.isPending
+                    ? "Creating Class..."
+                    : "Create Class"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -110,7 +110,7 @@ const TeacherClassDetails = () => {
 
   return (
     <div className="min-h-screen bg-neutral py-8 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto bg-base-100 rounded-xl shadow-md p-8">
+      <div className="max-w-6xl mx-auto rounded-xl shadow-md p-8">
         <h2 className="text-3xl font-bold text-primary text-center mb-8">
           Manage "{classDetails?.title}" Class
         </h2>
@@ -122,24 +122,24 @@ const TeacherClassDetails = () => {
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Total Enrollment Card */}
-            <div className="card bg-blue-100 text-blue-800 shadow-lg rounded-lg p-6 flex flex-col items-center justify-center text-center">
-              <FaUsers className="text-5xl mb-3" />
-              <p className="text-4xl font-bold">{totalEnrollments}</p>
-              <p className="text-lg">Total Enrolled Students</p>
+            <div className="card bg-base-100 shadow-lg rounded-lg p-6 flex flex-col items-center justify-center text-center">
+              <FaUsers className="text-5xl mb-3 text-primary" />
+              <p className="text-4xl font-bold text-text">{totalEnrollments}</p>
+              <p className="text-lg text-text">Total Enrolled Students</p>
             </div>
 
             {/* Total Assignment Card */}
-            <div className="card bg-green-100 text-green-800 shadow-lg rounded-lg p-6 flex flex-col items-center justify-center text-center">
-              <FaTasks className="text-5xl mb-3" />
-              <p className="text-4xl font-bold">{totalAssignments}</p>
-              <p className="text-lg">Total Assignments Added</p>
+            <div className="card bg-base-100 shadow-lg rounded-lg p-6 flex flex-col items-center justify-center text-center">
+              <FaTasks className="text-5xl mb-3 text-primary" />
+              <p className="text-4xl font-bold text-text">{totalAssignments}</p>
+              <p className="text-lg text-text">Total Assignments Added</p>
             </div>
 
             {/* Total Assignment Submission Card */}
-            <div className="card bg-purple-100 text-purple-800 shadow-lg rounded-lg p-6 flex flex-col items-center justify-center text-center">
-              <FaCheckCircle className="text-5xl mb-3" />
-              <p className="text-4xl font-bold">{totalSubmissions}</p>
-              <p className="text-lg">Total Assignment Submissions</p>
+            <div className="card bg-base-100 shadow-lg rounded-lg p-6 flex flex-col items-center justify-center text-center">
+              <FaCheckCircle className="text-5xl mb-3 text-primary" />
+              <p className="text-4xl font-bold text-text">{totalSubmissions}</p>
+              <p className="text-lg text-text">Total Assignment Submissions</p>
             </div>
           </div>
         </section>

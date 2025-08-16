@@ -182,13 +182,13 @@ const UpdateClassModal = ({
             className="file-input file-input-bordered w-full"
           />
           {imageUploadMutation.isLoading && (
-            <p className="text-sm text-gray-500">Uploading image...</p>
+            <p className="text-sm text-text">Uploading image...</p>
           )}
 
           <div className="modal-action">
             <button
               type="submit"
-              className="btn bg-primary text-white hover:bg-primary-content"
+              className="btn bg-secondary text-white hover:bg-secondary/80"
               disabled={
                 imageUploadMutation.isLoading || updateClassMutation.isLoading
               }
@@ -197,7 +197,7 @@ const UpdateClassModal = ({
             </button>
             <button
               type="button"
-              className="btn"
+              className="btn bg-primary text-white"
               onClick={() => {
                 dialogRef.current.close();
                 onClose();

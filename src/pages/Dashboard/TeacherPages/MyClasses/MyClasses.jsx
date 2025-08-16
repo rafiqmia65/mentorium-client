@@ -57,75 +57,94 @@ const MyClasses = () => {
         {myClasses.map((cls) => (
           <div
             key={cls._id}
-            className="bg-base-100 shadow-lg p-4 rounded-xl space-y-3"
+            className="bg-base-100 shadow-lg rounded-xl flex flex-col h-full"
           >
-            <img
-              src={cls.image}
-              alt={cls.title}
-              className="w-full h-48 object-cover rounded-lg"
-            />
-            <h2 className="text-xl font-semibold">{cls.title}</h2>
-            <p><strong>Name:</strong> {cls.name}</p>
-            <p><strong>Email:</strong> {cls.email}</p>
-            <p><strong>Price:</strong> ${cls.price}</p>
-            <p>
-              <strong>Status:</strong>{" "}
-              <span
-                className={`badge ml-2 ${
-                  cls.status === "approved" ? "badge-success" : "badge-warning"
-                }`}
-              >
-                {cls.status}
-              </span>
-            </p>
+            <div className="p-4 flex-grow">
+              <img
+                src={cls.image}
+                alt={cls.title}
+                className="w-full h-48 object-cover rounded-lg mb-3"
+              />
+              <h2 className="text-xl font-semibold mb-2">{cls.title}</h2>
+              <p className="mb-1">
+                <strong>Instructor:</strong> {cls.name}
+              </p>
+              <p className="mb-1">
+                <strong>Email:</strong> {cls.email}
+              </p>
+              <p className="mb-1">
+                <strong>Price:</strong> ${cls.price}
+              </p>
+              <p className="mb-3">
+                <strong>Status:</strong>{" "}
+                <span
+                  className={`badge ml-2 ${
+                    cls.status === "approved"
+                      ? "badge-success"
+                      : cls.status === "denied"
+                      ? "badge-error"
+                      : "badge-warning"
+                  }`}
+                >
+                  {cls.status}
+                </span>
+              </p>
+            </div>
 
-            <div className="flex flex-wrap gap-2">
-              <button
-                onClick={() => {
-                  setSelectedClass(cls);
-                  setUpdatedData({
-                    title: cls.title,
-                    price: cls.price,
-                    description: cls.description,
-                    name: cls.name,
-                    email: cls.email,
-                    image: cls.image,
-                    status: cls.status || "pending",
-                  });
-                }}
-                className="btn btn-sm btn-info text-white"
-              >
-                Update
-              </button>
+            {/* Button container with fixed position at bottom */}
+            <div className="p-4 mt-auto">
+              <div className="flex flex-wrap gap-2 justify-between">
+                <button
+                  onClick={() => {
+                    setSelectedClass(cls);
+                    setUpdatedData({
+                      title: cls.title,
+                      price: cls.price,
+                      description: cls.description,
+                      name: cls.name,
+                      email: cls.email,
+                      image: cls.image,
+                      status: cls.status || "pending",
+                    });
+                  }}
+                  className="btn btn-sm bg-secondary/80 hover:bg-secondary text-white flex-1"
+                >
+                  Update
+                </button>
 
-              <button
-                onClick={() =>
-                  Swal.fire({
-                    title: "Are you sure?",
-                    text: "You won't be able to undo this!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#d33",
-                    cancelButtonColor: "#3085d6",
-                    confirmButtonText: "Yes, delete it!",
-                  }).then((result) => {
-                    if (result.isConfirmed) {
-                      deleteClassMutation.mutate(cls._id);
-                    }
-                  })
-                }
-                className="btn btn-sm btn-error"
-              >
-                Delete
-              </button>
+                <button
+                  onClick={() =>
+                    Swal.fire({
+                      title: "Are you sure?",
+                      text: "You won't be able to undo this!",
+                      icon: "warning",
+                      showCancelButton: true,
+                      confirmButtonColor: "#d33",
+                      cancelButtonColor: "#3085d6",
+                      confirmButtonText: "Yes, delete it!",
+                    }).then((result) => {
+                      if (result.isConfirmed) {
+                        deleteClassMutation.mutate(cls._id);
+                      }
+                    })
+                  }
+                  className="btn btn-sm btn-error text-white flex-1"
+                >
+                  Delete
+                </button>
 
-              <button
-                onClick={() => navigate(`/dashboard/teacherClassDetails/${cls._id}`)}
-                className="btn btn-sm btn-secondary"
-                disabled={cls.status !== "approved"}
-              >
-                See Details
-              </button>
+                <button
+                  onClick={() =>
+                    navigate(`/dashboard/teacherClassDetails/${cls._id}`)
+                  }
+                  className={`btn btn-sm btn-secondary flex-1 ${
+                    cls.status !== "approved" ? "btn-disabled" : ""
+                  }`}
+                  disabled={cls.status !== "approved"}
+                >
+                  Details
+                </button>
+              </div>
             </div>
           </div>
         ))}
@@ -138,7 +157,7 @@ const MyClasses = () => {
           updatedData={updatedData}
           setUpdatedData={setUpdatedData}
           onClose={() => setSelectedClass(null)}
-          refetch={refetch} 
+          refetch={refetch}
         />
       )}
     </div>

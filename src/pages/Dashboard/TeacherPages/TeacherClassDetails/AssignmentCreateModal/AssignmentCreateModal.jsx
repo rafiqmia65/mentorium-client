@@ -24,8 +24,8 @@ const AssignmentCreateModal = ({ classId, onClose }) => {
     },
     onSuccess: () => {
       Swal.fire("Added!", "Assignment has been added successfully.", "success");
-      reset(); 
-      onClose(); 
+      reset();
+      onClose();
       queryClient.invalidateQueries(["totalAssignments", classId]);
       queryClient.invalidateQueries(["assignments", classId]);
     },
@@ -52,7 +52,7 @@ const AssignmentCreateModal = ({ classId, onClose }) => {
       teacherEmail: user.email,
       title: data.title,
       description: data.description,
-      deadline: data.deadline, 
+      deadline: data.deadline,
     };
     addAssignmentMutation.mutate(assignmentPayload);
   };
@@ -66,7 +66,7 @@ const AssignmentCreateModal = ({ classId, onClose }) => {
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div className="form-control">
             <label className="label">
-              <span className="label-text">Assignment Title</span>
+              <span className="label-text text-text">Assignment Title</span>
             </label>
             <input
               type="text"
@@ -83,7 +83,7 @@ const AssignmentCreateModal = ({ classId, onClose }) => {
 
           <div className="form-control">
             <label className="label">
-              <span className="label-text">Deadline</span>
+              <span className="label-text text-text">Deadline</span>
             </label>
             <input
               type="date"
@@ -99,7 +99,7 @@ const AssignmentCreateModal = ({ classId, onClose }) => {
 
           <div className="form-control">
             <label className="label">
-              <span className="label-text">Description</span>
+              <span className="label-text text-text">Description</span>
             </label>
             <textarea
               {...register("description", {
@@ -118,12 +118,16 @@ const AssignmentCreateModal = ({ classId, onClose }) => {
           <div className="modal-action">
             <button
               type="submit"
-              className="btn bg-primary text-white hover:bg-primary-content"
+              className="btn bg-secondary text-white hover:bg-secondary/80"
               disabled={addAssignmentMutation.isPending}
             >
               {addAssignmentMutation.isPending ? "Adding..." : "Add Assignment"}
             </button>
-            <button type="button" className="btn" onClick={onClose}>
+            <button
+              type="button"
+              className="btn bg-primary text-white"
+              onClick={onClose}
+            >
               Close
             </button>
           </div>
