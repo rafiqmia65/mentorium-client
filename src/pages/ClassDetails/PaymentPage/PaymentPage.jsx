@@ -95,7 +95,7 @@ const PaymentPage = () => {
 
   if (classError || paymentError) {
     return (
-      <div className="min-h-screen bg-neutral py-8 px-4">
+      <div className="min-h-screen bg-neutral py-10 px-4">
         <div className="max-w-2xl mx-auto bg-base-100 rounded-xl shadow-md p-8">
           <h2 className="text-2xl font-bold text-error mb-4">Payment Error</h2>
           <p className="mb-4">{classError?.message || paymentError?.message}</p>
@@ -120,7 +120,7 @@ const PaymentPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-neutral py-8 pt-30 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-neutral py-10 pt-25 px-4 sm:px-6 lg:px-8">
       <div className="max-w-2xl mx-auto bg-base-100 rounded-xl shadow-md p-8">
         <h2 className="text-2xl font-bold text-primary mb-6">
           Complete Your Enrollment

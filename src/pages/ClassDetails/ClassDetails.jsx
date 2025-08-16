@@ -3,16 +3,15 @@ import { useParams, useNavigate } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import {
   FaChalkboardTeacher,
-  FaEnvelope,
   FaDollarSign,
   FaUsers,
   FaChair,
   FaStar,
   FaChevronDown,
   FaChevronUp,
+  FaEnvelope,
   FaPhone,
 } from "react-icons/fa";
-import { IoIosTime } from "react-icons/io";
 import { motion } from "framer-motion";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
 import useAuth from "../../Hook/useAuth";
@@ -74,7 +73,6 @@ const ClassDetails = () => {
     enabled: !!user?.email,
   });
 
-  // Determine if the current user is already enrolled in this class
   const isUserAlreadyEnrolled = enrolledClasses.some(
     (enrolledClass) => enrolledClass._id === classId
   );
@@ -99,13 +97,13 @@ const ClassDetails = () => {
     navigate(`/payment/${classId}`);
   };
 
-  // Animation variants
+  // Animation variants for a smoother look
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
+        staggerChildren: 0.2,
       },
     },
   };
@@ -116,14 +114,14 @@ const ClassDetails = () => {
       y: 0,
       opacity: 1,
       transition: {
-        duration: 0.5,
+        duration: 0.6,
+        ease: "easeOut",
       },
     },
   };
 
   const instructor = classDetails.instructor;
 
-  // Description truncation logic
   const descriptionLimit = 200;
   const truncatedDescription =
     classDetails.description?.length > descriptionLimit
@@ -131,284 +129,243 @@ const ClassDetails = () => {
       : classDetails.description;
 
   return (
-    <div className="min-h-screen bg-neutral py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
+    <div className="bg-neutral min-h-screen pt-20 pb-10 ">
+      <motion.div
+        className="container mx-auto px-4 lg:px-0"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
         {/* Breadcrumb */}
         <nav className="flex mb-8" aria-label="Breadcrumb">
-          <ol className="inline-flex items-center space-x-1 md:space-x-3">
-            <li className="inline-flex items-center">
-              <a
-                href="/"
-                className="inline-flex items-center text-sm font-medium text-gray-500 hover:text-primary"
-              >
+          <ol className="inline-flex items-center space-x-1 md:space-x-3 text-text">
+            <li>
+              <a href="/" className="hover:text-primary transition-colors">
                 Home
               </a>
             </li>
             <li>
-              <div className="flex items-center">
-                <svg
-                  className="w-3 h-3 text-gray-400 mx-1"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 6 10"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="m1 9 4-4-4-4"
-                  />
-                </svg>
-                <a
-                  href="/allClasses"
-                  className="ml-1 text-sm font-medium text-gray-500 hover:text-primary md:ml-2"
-                >
-                  Classes
-                </a>
-              </div>
+              <span className="mx-2 text-text">/</span>
+              <a
+                href="/allClasses"
+                className="hover:text-primary transition-colors"
+              >
+                All Classes
+              </a>
             </li>
             <li aria-current="page">
-              <div className="flex items-center">
-                <svg
-                  className="w-3 h-3 text-gray-400 mx-1"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 6 10"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="m1 9 4-4-4-4"
-                  />
-                </svg>
-                <span className="ml-1 text-sm font-medium text-gray-700 md:ml-2">
-                  {classDetails.title}
-                </span>
-              </div>
+              <span className="mx-2 text-text">/</span>
+              <span className="text-primary font-medium">
+                {classDetails.title}
+              </span>
             </li>
           </ol>
         </nav>
-        {/* Instructor Section - Moved to Top */}
-        {instructor && (
-          <motion.div
-            className="mb-12 bg-base-100 rounded-2xl shadow-xl p-8 flex flex-col md:flex-row gap-6 items-center md:items-start"
-            variants={itemVariants}
-          >
-            <div className="w-28 h-28 rounded-full bg-gray-200 overflow-hidden flex-shrink-0 border-4 border-primary">
-              <img
-                src={
-                  instructor?.photo ||
-                  "https://img.icons8.com/?size=100&id=124204&format=png&color=000000"
-                }
-                alt="Instructor"
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  e.target.src =
-                    "https://img.icons8.com/?size=100&id=124204&format=png&color=000000";
-                }}
-              />
-            </div>
-            <div className="flex-1 text-center md:text-left">
-              <h2 className="text-2xl font-bold text-primary mb-2">
-                About the Instructor
-              </h2>
-              <h3 className="text-xl font-semibold text-secondary">
-                {instructor?.name || classDetails.name}
-              </h3>
-              <p className="text-text mb-2">
-                {instructor?.teacherApplication?.experience
-                  ? `With ${
-                      instructor.teacherApplication.experience
-                    } of experience in teaching ${classDetails.category}, ${
-                      instructor.name.split(" ")[0]
-                    } has helped numerous students master this subject.`
-                  : `Experienced ${classDetails.category} instructor with a passion for teaching and helping students succeed.`}
-              </p>
-              <div className="flex items-center justify-center md:justify-start text-text">
-                <FaEnvelope className="mr-2" />
-                <span className="text-sm">{instructor?.email || "N/A"}</span>
-              </div>
-              {instructor?.phone && (
-                <div className="flex items-center justify-center md:justify-start text-gray-500 mt-1">
-                  <FaPhone className="mr-2" />
-                  <span className="text-sm">{instructor.phone}</span>
-                </div>
-              )}
-            </div>
-          </motion.div>
-        )}
-        {/* Main Class Details Section - Single Column */}
-        <motion.div
-          className="bg-base-100 rounded-2xl shadow-xl p-8"
-          variants={itemVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          {/* Class Image */}
-          <div className="relative rounded-xl overflow-hidden shadow-md w-full h-[400px] mb-6">
-            {" "}
-            {/* Fixed height */}
-            <img
-              className="w-full h-full object-cover"
-              src={classDetails.image}
-              alt={classDetails.title}
-              onError={(e) => {
-                e.target.src =
-                  "https://via.placeholder.com/800x400?text=Class+Image"; // Larger placeholder
-              }}
-            />
-            <div className="absolute top-4 right-4 bg-base-100 backdrop-blur-sm px-3 py-1 rounded-full shadow-sm">
-              <span className="text-sm font-semibold text-primary">
-                {classDetails.category}
-              </span>
-            </div>
-          </div>
 
-          {/* Class Title */}
-          <h1 className="text-4xl font-bold text-primary mb-3 text-center lg:text-left">
-            {classDetails.title}
-          </h1>
-
-          {/* Description with See More/Less */}
-          <p className="text-text mb-4 text-center lg:text-left">
-            {showFullDescription
-              ? classDetails.description
-              : truncatedDescription}
-          </p>
-          {classDetails.description?.length > descriptionLimit && (
-            <button
-              onClick={() => setShowFullDescription(!showFullDescription)}
-              className="btn btn-link text-secondary text-sm mb-6 flex items-center mx-auto lg:mx-0"
+        {/* Main Content: Two-Column Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+          {/* Left Column: Class Info */}
+          <div className="lg:col-span-2 space-y-10">
+            <motion.div
+              className="bg-base-100 rounded-3xl shadow-xl p-8"
+              variants={itemVariants}
             >
-              {showFullDescription ? (
-                <>
-                  See Less <FaChevronUp className="ml-1" />
-                </>
-              ) : (
-                <>
-                  See More <FaChevronDown className="ml-1" />
-                </>
+              {/* Class Image */}
+              <div className="rounded-2xl overflow-hidden shadow-md w-full h-[300px] sm:h-[400px] mb-8">
+                <img
+                  className="w-full h-full object-cover"
+                  src={classDetails.image}
+                  alt={classDetails.title}
+                  onError={(e) => {
+                    e.target.src =
+                      "https://via.placeholder.com/800x400?text=Class+Image";
+                  }}
+                />
+              </div>
+
+              {/* Class Title & Details */}
+              <h1 className="text-4xl lg:text-5xl font-extrabold text-primary mb-4">
+                {classDetails.title}
+              </h1>
+              <p className="text-lg text-secondary font-medium mb-6">
+                {classDetails.category}
+              </p>
+
+              {/* Description */}
+              <div className="prose max-w-none text-text">
+                <p>
+                  {showFullDescription
+                    ? classDetails.description
+                    : truncatedDescription}
+                </p>
+              </div>
+              {classDetails.description?.length > descriptionLimit && (
+                <button
+                  onClick={() => setShowFullDescription(!showFullDescription)}
+                  className="btn btn-link text-secondary text-sm flex items-center mt-4"
+                >
+                  {showFullDescription ? (
+                    <>
+                      See Less <FaChevronUp className="ml-1" />
+                    </>
+                  ) : (
+                    <>
+                      See More <FaChevronDown className="ml-1" />
+                    </>
+                  )}
+                </button>
               )}
-            </button>
-          )}
-
-          {/* Enrollment Details */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            {" "}
-            <div className="flex items-center bg-blue-50 text-blue-800 rounded-lg p-4 shadow-sm">
-              {" "}
-              <div className="p-2 rounded-full bg-blue-100 mr-3">
-                <FaDollarSign className="text-blue-600" />
-              </div>
-              <div>
-                <p className="text-sm text-blue-700">Price</p>
-                <p className="font-medium text-xl text-blue-900">
-                  ${classDetails.price}
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center bg-green-50 text-green-800 rounded-lg p-4 shadow-sm">
-              {" "}
-              <div className="p-2 rounded-full bg-green-100 mr-3">
-                <FaUsers className="text-green-600" />
-              </div>
-              <div>
-                <p className="text-sm text-green-700">Students Enrolled</p>
-                <p className="font-medium">
-                  {classDetails.totalEnrolled || 0} students
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center bg-yellow-50 text-yellow-800 rounded-lg p-4 shadow-sm">
-              {" "}
-              <div className="p-2 rounded-full bg-yellow-100 mr-3">
-                <FaChair className="text-yellow-600" />
-              </div>
-              <div>
-                <p className="text-sm text-yellow-700">Available Seats</p>
-                <p className={`font-medium`}>
-                  {classDetails.availableSeats} available
-                </p>
-              </div>
-            </div>
+            </motion.div>
           </div>
 
-          {/* What you'll learn */}
-          <div className="bg-purple-50 text-purple-800 rounded-lg p-6 mb-8 shadow-sm">
-            {" "}
-            <h3 className="font-semibold text-purple-900 mb-3 text-xl">
-              What you'll learn
-            </h3>
-            <ul className="list-disc list-inside space-y-2 text-purple-700">
-              <li>Master the fundamentals of {classDetails.category}</li>
-              <li>Hands-on projects and exercises</li>
-              <li>Personalized feedback from instructor</li>
-              <li>Lifetime access to course materials</li>
-            </ul>
-          </div>
+          {/* Right Column: Instructor, Stats & Enroll Button */}
+          <div className="lg:col-span-1 space-y-10">
+            {/* Instructor Card */}
+            {instructor && (
+              <motion.div
+                className="bg-base-100 rounded-3xl shadow-xl p-8"
+                variants={itemVariants}
+              >
+                <div className="flex flex-col items-center text-center">
+                  <div className="w-24 h-24 rounded-full overflow-hidden mb-4 border-4 border-primary">
+                    <img
+                      src={
+                        instructor?.photo ||
+                        "https://img.icons8.com/?size=100&id=124204&format=png&color=000000"
+                      }
+                      alt="Instructor"
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.target.src =
+                          "https://img.icons8.com/?size=100&id=124204&format=png&color=000000";
+                      }}
+                    />
+                  </div>
+                  <h3 className="text-2xl font-bold text-primary mb-1">
+                    {instructor?.name}
+                  </h3>
+                  <p className="text-sm text-text mb-4">
+                    Instructor of {classDetails.category}
+                  </p>
 
-          {/* Enroll Button */}
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={handleEnroll}
-            disabled={isUserAlreadyEnrolled}
-            className={`w-full py-3 px-6 rounded-xl cursor-pointer font-bold text-white transition-all ${
-              isUserAlreadyEnrolled
-                ? "bg-gray-400 cursor-not-allowed"
-                : "bg-gradient-to-r from-primary to-primary-content hover:shadow-lg"
-            }`}
-          >
-            {isUserAlreadyEnrolled ? (
-              <span className="flex items-center justify-center">
-                Already Enrolled
-              </span>
-            ) : (
-              <span className="flex items-center justify-center">
-                Enroll Now for ${classDetails.price}
-              </span>
+                  <div className="flex items-center text-text mb-2">
+                    <FaEnvelope className="mr-2" />
+                    <span className="text-sm">
+                      {instructor?.email || "N/A"}
+                    </span>
+                  </div>
+                  {instructor?.phone && (
+                    <div className="flex items-center text-text">
+                      <FaPhone className="mr-2" />
+                      <span className="text-sm">{instructor.phone}</span>
+                    </div>
+                  )}
+                </div>
+              </motion.div>
             )}
-          </motion.button>
 
-          {isUserAlreadyEnrolled ? (
-            <p className="text-center text-sm text-gray-500 mt-3">
-              You are already a student in this class.
-            </p>
-          ) : (
-            <p className="text-center text-sm text-gray-500 mt-3">
-              Secure your spot now!
-            </p>
-          )}
-        </motion.div>
-        {/* Class Reviews Section - At the bottom */}
+            {/* Price, Enrolled, Seats Stats Card */}
+            <motion.div
+              className="bg-base-100 rounded-3xl shadow-xl p-8"
+              variants={itemVariants}
+            >
+              <h3 className="text-2xl font-bold text-primary mb-6 text-center">
+                Class Details
+              </h3>
+              <div className="space-y-4">
+                <div className="flex items-center space-x-3 p-4 bg-primary/10 rounded-xl">
+                  <span className="p-3 bg-primary rounded-full text-white">
+                    <FaDollarSign className="h-5 w-5" />
+                  </span>
+                  <div>
+                    <p className="text-sm text-text">Price</p>
+                    <p className="text-xl font-semibold text-primary">
+                      ${classDetails.price}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-3 p-4 bg-secondary/10 rounded-xl">
+                  <span className="p-3 bg-secondary rounded-full text-white">
+                    <FaUsers className="h-5 w-5" />
+                  </span>
+                  <div>
+                    <p className="text-sm text-text">Students Enrolled</p>
+                    <p className="text-xl font-semibold text-secondary">
+                      {classDetails.totalEnrolled || 0}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-3 p-4 bg-primary/10 rounded-xl">
+                  <span className="p-3 bg-primary rounded-full text-white">
+                    <FaChair className="h-5 w-5" />
+                  </span>
+                  <div>
+                    <p className="text-sm text-text">Available Seats</p>
+                    <p className="text-xl font-semibold text-primary">
+                      {classDetails.availableSeats}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Enroll Button */}
+            <motion.div variants={itemVariants}>
+              <button
+                onClick={handleEnroll}
+                disabled={isUserAlreadyEnrolled}
+                className={`w-full py-4 rounded-xl font-bold text-lg text-white transition-all transform hover:scale-105 shadow-lg ${
+                  isUserAlreadyEnrolled
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-gradient-to-r from-primary to-secondary"
+                }`}
+              >
+                {isUserAlreadyEnrolled ? (
+                  <span>Already Enrolled</span>
+                ) : (
+                  <span>Enroll Now</span>
+                )}
+              </button>
+              {isUserAlreadyEnrolled ? (
+                <p className="text-center text-sm text-text mt-3">
+                  You are already a student in this class.
+                </p>
+              ) : (
+                <p className="text-center text-sm text-text mt-3">
+                  Secure your spot now!
+                </p>
+              )}
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Reviews Section */}
         <motion.div
-          className="mt-12 bg-base-100 rounded-2xl shadow-xl p-8"
+          className="mt-16 bg-base-100 rounded-3xl shadow-xl p-8"
           variants={itemVariants}
         >
-          <h2 className="text-2xl font-bold text-secondary mb-6 text-center">
-            Student Reviews for "{classDetails.title}"
+          <h2 className="text-3xl font-bold text-primary mb-8 text-center">
+            Student Reviews
           </h2>
           {classFeedbacks.length === 0 ? (
-            <p className="text-center text-gray-600 text-lg">
+            <p className="text-center text-text text-lg italic">
               No reviews available for this class yet. Be the first to leave
               one!
             </p>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {classFeedbacks.map((feedback) => (
                 <div
                   key={feedback._id}
-                  className="bg-neutral rounded-lg p-5 shadow-sm"
+                  className="bg-neutral rounded-2xl p-6 shadow-sm"
                 >
-                  <div className="flex items-center mb-3">
-                    <div className="w-12 h-12 rounded-full overflow-hidden mr-3 border-2 border-secondary">
+                  <div className="flex items-center mb-4">
+                    <div className="w-14 h-14 rounded-full overflow-hidden mr-4 border-2 border-secondary flex-shrink-0">
                       <img
-                        src={feedback.studentPhoto}
+                        src={
+                          feedback.studentPhoto ||
+                          "https://img.icons8.com/?size=100&id=124204&format=png&color=000000"
+                        }
                         alt={feedback.studentName}
                         className="w-full h-full object-cover"
                         onError={(e) => {
@@ -421,12 +378,12 @@ const ClassDetails = () => {
                       <p className="font-semibold text-primary">
                         {feedback.studentName}
                       </p>
-                      <div className="flex">
+                      <div className="flex mt-1">
                         {[...Array(5)].map((_, i) => (
                           <FaStar
                             key={i}
                             className={`text-sm ${
-                              feedback.rating && feedback.rating > i
+                              feedback.rating > i
                                 ? "text-yellow-400"
                                 : "text-gray-300"
                             }`}
@@ -435,10 +392,10 @@ const ClassDetails = () => {
                       </div>
                     </div>
                   </div>
-                  <p className="text-text text-sm italic">
+                  <p className="text-text italic leading-relaxed text-sm">
                     "{feedback.description}"
                   </p>
-                  <p className="text-xs text-text mt-2">
+                  <p className="text-xs text-gray-500 mt-3">
                     Reviewed on:{" "}
                     {new Date(feedback.submittedAt).toLocaleDateString()}
                   </p>
@@ -447,7 +404,7 @@ const ClassDetails = () => {
             </div>
           )}
         </motion.div>
-      </div>
+      </motion.div>
     </div>
   );
 };
