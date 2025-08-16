@@ -84,7 +84,7 @@ const Users = () => {
         {/* Users Table */}
         <div className="overflow-x-auto rounded-lg">
           <table className="w-full min-w-[800px] text-left text-sm">
-            <thead className="bg-secondary text-gray-700">
+            <thead className="bg-secondary/20 text-text">
               <tr>
                 <th className="py-2 px-3 min-w-[120px]">Name</th>
                 <th className="py-2 px-3 min-w-[200px]">Email</th>
@@ -105,7 +105,7 @@ const Users = () => {
                     <img
                       src={user.photo}
                       alt={user.name}
-                      className="w-10 h-10 rounded-full object-cover bg-accent p-1"
+                      className="w-10 h-10 rounded-full object-cover border border-primary p-1"
                       onError={(e) => {
                         e.target.onerror = null;
                         e.target.src =
@@ -135,7 +135,7 @@ const Users = () => {
                         });
                       }}
                       disabled={user.role === "admin"}
-                      className="btn btn-sm btn-success text-white"
+                      className="btn btn-sm bg-secondary hover:bg-secondary/80 text-white"
                     >
                       {user.role === "admin" ? "Admin" : "Make Admin"}
                     </button>

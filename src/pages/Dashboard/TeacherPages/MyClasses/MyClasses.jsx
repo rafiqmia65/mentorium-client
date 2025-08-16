@@ -78,7 +78,7 @@ const MyClasses = () => {
               <p className="mb-3">
                 <strong>Status:</strong>{" "}
                 <span
-                  className={`badge ml-2 ${
+                  className={`badge ml-2 text-white ${
                     cls.status === "approved"
                       ? "badge-success"
                       : cls.status === "denied"
@@ -137,7 +137,7 @@ const MyClasses = () => {
                   onClick={() =>
                     navigate(`/dashboard/teacherClassDetails/${cls._id}`)
                   }
-                  className={`btn btn-sm btn-secondary flex-1 ${
+                  className={`btn btn-sm btn-secondary flex-1 text-white ${
                     cls.status !== "approved" ? "btn-disabled" : ""
                   }`}
                   disabled={cls.status !== "approved"}

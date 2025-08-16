@@ -60,6 +60,16 @@ const DashboardLayouts = () => {
       </li>
       <li>
         <NavLink
+          to="/dashboard/dashboard"
+          className={({ isActive }) =>
+            `hover:text-primary ${isActive ? "text-primary font-bold" : ""}`
+          }
+        >
+          Dashboard
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
           to="/dashboard/profile"
           className={({ isActive }) =>
             `hover:text-primary ${isActive ? "text-primary font-bold" : ""}`
@@ -157,7 +167,7 @@ const DashboardLayouts = () => {
       <li>
         <button
           onClick={handleLogOut}
-          className="btn bg-primary text-white hover:bg-primary-content"
+          className="btn bg-secondary text-white hover:bg-secondary/80"
         >
           Logout
         </button>

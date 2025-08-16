@@ -128,10 +128,10 @@ const TeacherRequest = () => {
     return (
       <div className="bg-neutral h-screen flex items-center justify-center">
         <div className="text-center py-10">
-          <h2 className="text-3xl font-bold text-gray-700">
+          <h2 className="text-3xl font-bold text-text">
             0 Teacher Requests Pending
           </h2>
-          <p className="mt-4 text-gray-500">
+          <p className="mt-4 text-text">
             No applications are currently awaiting review.
           </p>
         </div>
@@ -149,7 +149,7 @@ const TeacherRequest = () => {
         {/* ✅ Horizontal Scroll Wrapper */}
         <div className="w-full overflow-x-auto rounded-lg">
           <table className="w-full min-w-[900px] text-left text-sm">
-            <thead className="bg-secondary text-gray-700">
+            <thead className="bg-secondary/20 text-text">
               <tr>
                 <th className="py-2 px-3 min-w-[120px]">Name</th>
                 <th className="py-2 px-3 min-w-[100px]">Image</th>
@@ -169,7 +169,7 @@ const TeacherRequest = () => {
                   <td className="py-3 px-3 truncate">{request.name}</td>
                   <td className="py-3 px-3">
                     <div className="avatar flex justify-center items-center">
-                      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden">
+                      <div className="w-10 h-10 border border-primary sm:w-12 sm:h-12 rounded-full overflow-hidden">
                         <img
                           src={
                             request.photo ||
@@ -212,7 +212,7 @@ const TeacherRequest = () => {
                     <div className="flex flex-col sm:flex-row justify-center gap-2">
                       <button
                         onClick={() => handleApprove(request.email)}
-                        className="btn btn-sm btn-success text-white text-xs"
+                        className="btn btn-sm bg-secondary hover:bg-secondary/80 text-white text-xs"
                         disabled={
                           request.teacherApplication?.status === "approved" ||
                           request.teacherApplication?.status === "rejected" ||

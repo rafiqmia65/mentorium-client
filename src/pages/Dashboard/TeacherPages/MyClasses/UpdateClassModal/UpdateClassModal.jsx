@@ -140,14 +140,14 @@ const UpdateClassModal = ({
             type="text"
             name="name"
             value={updatedData.name || ""}
-            className="input input-bordered w-full bg-base-200"
+            className="input input-bordered w-full "
             readOnly
           />
           <input
             type="email"
             name="email"
             value={updatedData.email || ""}
-            className="input input-bordered w-full bg-base-200"
+            className="input input-bordered w-full "
             readOnly
           />
           <input

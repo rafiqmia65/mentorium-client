@@ -20,7 +20,7 @@ const AdminAllClasses = () => {
     queryKey: ["adminAllClasses"],
     queryFn: async () => {
       const res = await axiosSecure.get("/admin/all-classes");
-      return res.data; 
+      return res.data;
     },
   });
 
@@ -69,7 +69,7 @@ const AdminAllClasses = () => {
 
         <div className="overflow-x-auto rounded-lg">
           <table className="w-full min-w-[800px] text-left text-sm">
-            <thead className="bg-secondary text-gray-700">
+            <thead className="bg-secondary/20 text-text">
               <tr>
                 <th className="py-2 px-3 min-w-[50px]">#</th>
                 <th className="py-2 px-3 min-w-[100px]">Image</th>
@@ -108,7 +108,7 @@ const AdminAllClasses = () => {
                   </td>
                   <td className="py-3 px-3 whitespace-normal">
                     <span
-                      className={`badge ${
+                      className={`badge text-white ${
                         cls.status === "approved"
                           ? "badge-success"
                           : cls.status === "rejected"
@@ -146,7 +146,7 @@ const AdminAllClasses = () => {
                       onClick={() =>
                         navigate(`/dashboard/admin/class-progress/${cls._id}`)
                       }
-                      className="btn btn-sm btn-accent text-white text-xs sm:text-sm w-full flex-shrink-0"
+                      className="btn btn-sm bg-secondary text-white text-xs sm:text-sm w-full flex-shrink-0"
                       disabled={cls.status !== "approved"}
                     >
                       Progress

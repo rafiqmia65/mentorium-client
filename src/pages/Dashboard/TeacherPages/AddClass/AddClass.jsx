@@ -115,7 +115,7 @@ const AddClass = () => {
           <h2 className="text-4xl font-bold text-primary mb-2">
             Add New Class
           </h2>
-          <p className="text-lg text-gray-600">
+          <p className="text-lg text-text">
             Fill out the form to create your new class
           </p>
         </div>
@@ -126,7 +126,7 @@ const AddClass = () => {
               {/* Class Title */}
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text flex items-center">
+                  <span className="label-text flex items-center text-text">
                     <FaChalkboardTeacher className="mr-2 text-primary" />
                     Class Title
                   </span>
@@ -135,33 +135,37 @@ const AddClass = () => {
                   type="text"
                   name="title"
                   placeholder="Enter class title"
-                  className="input input-bordered w-full focus:ring-2 focus:ring-primary"
+                  className="input input-bordered w-full focus:ring-2 focus:ring-primary focus:border-primary text-text hover:border-primary transition-colors duration-200"
                   required
                   onChange={handleChange}
                 />
               </div>
 
-              {/* Instructor Info (readonly) */}
+              {/* Instructor Info */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text">Instructor Name</span>
+                    <span className="label-text text-text">
+                      Instructor Name
+                    </span>
                   </label>
                   <input
                     type="text"
                     value={user?.displayName || ""}
-                    className="input input-bordered w-full bg-gray-100"
+                    className="input input-bordered w-full text-text hover:border-primary transition-colors duration-200"
                     readOnly
                   />
                 </div>
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text">Instructor Email</span>
+                    <span className="label-text text-text">
+                      Instructor Email
+                    </span>
                   </label>
                   <input
                     type="email"
                     value={user?.email || ""}
-                    className="input input-bordered w-full bg-gray-100"
+                    className="input input-bordered w-full text-text hover:border-primary transition-colors duration-200"
                     readOnly
                   />
                 </div>
@@ -170,7 +174,7 @@ const AddClass = () => {
               {/* Price */}
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text flex items-center">
+                  <span className="label-text flex items-center text-text">
                     <FaDollarSign className="mr-2 text-primary" />
                     Price
                   </span>
@@ -179,7 +183,7 @@ const AddClass = () => {
                   type="number"
                   name="price"
                   placeholder="Enter price in USD"
-                  className="input input-bordered w-full focus:ring-2 focus:ring-primary"
+                  className="input input-bordered w-full focus:ring-2 focus:ring-primary focus:border-primary text-text hover:border-primary transition-colors duration-200"
                   required
                   onChange={handleChange}
                 />
@@ -188,7 +192,7 @@ const AddClass = () => {
               {/* Description */}
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text flex items-center">
+                  <span className="label-text flex items-center text-text">
                     <FaInfoCircle className="mr-2 text-primary" />
                     Class Description
                   </span>
@@ -196,7 +200,7 @@ const AddClass = () => {
                 <textarea
                   name="description"
                   placeholder="Describe what students will learn in this class"
-                  className="textarea textarea-bordered w-full h-32 focus:ring-2 focus:ring-primary"
+                  className="textarea textarea-bordered w-full h-32 focus:ring-2 focus:ring-primary focus:border-primary text-text hover:border-primary transition-colors duration-200"
                   required
                   onChange={handleChange}
                 ></textarea>
@@ -205,7 +209,7 @@ const AddClass = () => {
               {/* Image Upload */}
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text flex items-center">
+                  <span className="label-text flex items-center text-text">
                     <FaImage className="mr-2 text-primary" />
                     Class Image
                   </span>
@@ -214,13 +218,13 @@ const AddClass = () => {
                   type="file"
                   name="imageFile"
                   accept="image/*"
-                  className="file-input file-input-bordered w-full focus:ring-2 focus:ring-primary"
+                  className="file-input file-input-bordered w-full focus:ring-2 focus:ring-primary focus:border-primary hover:border-primary transition-colors duration-200"
                   required
                   onChange={handleChange}
                 />
                 {imagePreview && (
                   <div className="mt-4">
-                    <p className="text-sm text-gray-500 mb-2">Image Preview:</p>
+                    <p className="text-sm text-text mb-2">Image Preview:</p>
                     <img
                       src={imagePreview}
                       alt="Class preview"
@@ -235,13 +239,18 @@ const AddClass = () => {
                 <button
                   type="submit"
                   disabled={addClassMutation.isPending}
-                  className={`btn btn-block bg-primary text-white hover:bg-primary-focus ${
-                    addClassMutation.isPending ? "loading" : ""
+                  className={`btn btn-block bg-secondary text-white hover:bg-secondary/80 focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-all ${
+                    addClassMutation.isPending ? "opacity-75" : ""
                   }`}
                 >
-                  {addClassMutation.isPending
-                    ? "Creating Class..."
-                    : "Create Class"}
+                  {addClassMutation.isPending ? (
+                    <>
+                      <span className="loading loading-spinner"></span>
+                      Creating Class...
+                    </>
+                  ) : (
+                    "Create Class"
+                  )}
                 </button>
               </div>
             </form>
