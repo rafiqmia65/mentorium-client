@@ -45,7 +45,7 @@ const AllClasses = () => {
     return <p className="text-red-500 text-center">Error: {error.message}</p>;
 
   return (
-    <div className="min-h-screen bg-neutral">
+    <div className="min-h-screen pt-25 bg-neutral">
       {/* Hero Section */}
       <div
         className="relative bg-cover bg-center w-full h-64 md:h-80 lg:h-96 flex items-center justify-center text-white"

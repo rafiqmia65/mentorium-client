@@ -105,21 +105,21 @@ const AdminClassProgress = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Enrollments */}
-          <div className="card bg-blue-100 text-blue-800 shadow-lg rounded-lg p-6 flex flex-col items-center justify-center text-center">
+          <div className="card bg-neutral text-primary shadow-lg rounded-lg p-6 flex flex-col items-center justify-center text-center">
             <FaUsers className="text-5xl mb-3" />
             <p className="text-4xl font-bold">{totalEnrollments}</p>
             <p className="text-lg">Total Enrolled Students</p>
           </div>
 
           {/* Assignments */}
-          <div className="card bg-green-100 text-green-800 shadow-lg rounded-lg p-6 flex flex-col items-center justify-center text-center">
+          <div className="card bg-neutral text-primary shadow-lg rounded-lg p-6 flex flex-col items-center justify-center text-center">
             <FaTasks className="text-5xl mb-3" />
             <p className="text-4xl font-bold">{totalAssignments}</p>
-            <p className="text-lg">Total Assignments</p>
+            <p className="text-lg ">Total Assignments</p>
           </div>
 
           {/* Submissions */}
-          <div className="card bg-purple-100 text-purple-800 shadow-lg rounded-lg p-6 flex flex-col items-center justify-center text-center">
+          <div className="card bg-neutral text-primary shadow-lg rounded-lg p-6 flex flex-col items-center justify-center text-center">
             <FaCheckCircle className="text-5xl mb-3" />
             <p className="text-4xl font-bold">{totalSubmissions}</p>
             <p className="text-lg">Total Submissions</p>

@@ -202,7 +202,7 @@ const AboutUs = () => {
             className="flex flex-col items-center p-6 rounded-xl shadow-md bg-base-100 hover:shadow-lg transition-shadow duration-300"
             variants={itemVariants}
           >
-            <FaHeart className="text-5xl text-red-500 mb-4" />
+            <FaHeart className="text-5xl text-primary mb-4" />
             <h3 className="text-xl font-semibold text-primary mb-2">Passion</h3>
             <p className="text-center text-text">
               We feel a deep passion for learning and teaching.
@@ -212,7 +212,7 @@ const AboutUs = () => {
             className="flex flex-col items-center p-6 rounded-xl shadow-md bg-base-100 hover:shadow-lg transition-shadow duration-300"
             variants={itemVariants}
           >
-            <FaBookOpen className="text-5xl text-yellow-500 mb-4" />
+            <FaBookOpen className="text-5xl text-primary mb-4" />
             <h3 className="text-xl font-semibold text-primary mb-2">
               Continuous Learning
             </h3>
@@ -224,7 +224,7 @@ const AboutUs = () => {
             className="flex flex-col items-center p-6 rounded-xl shadow-md bg-base-100 hover:shadow-lg transition-shadow duration-300"
             variants={itemVariants}
           >
-            <FaUsers className="text-5xl text-teal-500 mb-4" />
+            <FaUsers className="text-5xl text-primary mb-4" />
             <h3 className="text-xl font-semibold text-primary mb-2">
               Collaboration
             </h3>
@@ -236,7 +236,7 @@ const AboutUs = () => {
             className="flex flex-col items-center p-6 rounded-xl shadow-md bg-base-100 hover:shadow-lg transition-shadow duration-300"
             variants={itemVariants}
           >
-            <FaGlobe className="text-5xl text-indigo-500 mb-4" />
+            <FaGlobe className="text-5xl text-primary mb-4" />
             <h3 className="text-xl font-semibold text-primary mb-2">
               Accessibility
             </h3>
@@ -269,7 +269,10 @@ const AboutUs = () => {
             Start your learning journey or share your knowledge as an
             instructor.
           </motion.p>
-          <motion.div variants={itemVariants}>
+          <motion.div
+            variants={itemVariants}
+            className="flex flex-col gap-3 md:flex-row justify-center items-center"
+          >
             <Link
               to="/allClasses"
               className="btn btn-lg bg-white text-secondary hover:bg-gray-100 border-none rounded-full shadow-lg hover:shadow-xl transition-all duration-300 mr-4"
