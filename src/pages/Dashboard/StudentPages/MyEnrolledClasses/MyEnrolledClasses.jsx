@@ -72,8 +72,9 @@ const MyEnrolledClasses = () => {
             {enrolledClasses.map((classItem) => (
               <div
                 key={classItem._id}
-                className="bg-base-100 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
+                className="bg-base-100 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 flex flex-col"
               >
+                {/* Image */}
                 <div className="h-48 overflow-hidden">
                   <img
                     src={
@@ -87,7 +88,8 @@ const MyEnrolledClasses = () => {
                   />
                 </div>
 
-                <div className="p-6">
+                {/* Content */}
+                <div className="flex flex-col flex-grow p-6">
                   <h3 className="text-xl font-bold mb-2 text-primary">
                     {classItem.title}
                   </h3>
@@ -104,12 +106,15 @@ const MyEnrolledClasses = () => {
                     <p>Price: ${(classItem.amountPaid / 100).toFixed(2)}</p>
                   </div>
 
-                  <Link
-                    to={`/dashboard/continueClass/${classItem._id}`}
-                    className="btn bg-primary w-full text-white hover:bg-primary-content"
-                  >
-                    Continue Learning
-                  </Link>
+                  {/* Button always bottom */}
+                  <div className="mt-auto">
+                    <Link
+                      to={`/dashboard/continueClass/${classItem._id}`}
+                      className="btn bg-secondary w-full text-white hover:bg-secondary/80"
+                    >
+                      Continue Learning
+                    </Link>
+                  </div>
                 </div>
               </div>
             ))}

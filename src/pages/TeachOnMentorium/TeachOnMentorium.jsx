@@ -122,9 +122,9 @@ const TeachOnMentorium = () => {
   return (
     <div className="pt-24 pb-10 bg-neutral">
       <div className="container mx-auto px-4 lg:px-0 ">
-        <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-10 bg-base-100 rounded-2xl shadow-xl">
+        <div className="w-full py-10 px-5 grid grid-cols-1 lg:grid-cols-2 gap-10 bg-base-100 rounded-2xl shadow-xl">
           {/* Left Section - Info */}
-          <div className="flex flex-col justify-center space-y-6 p-5">
+          <div className="flex flex-col justify-center space-y-6 ">
             <h2 className="text-4xl font-extrabold text-primary flex items-center gap-2">
               Share Your Knowledge{" "}
               <span className="hidden md:block">
