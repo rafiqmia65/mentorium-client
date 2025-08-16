@@ -120,7 +120,7 @@ const PaymentPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-neutral py-10 pt-25 px-4 sm:px-6 lg:px-8">
+    <div className="bg-neutral py-10 pt-25 px-4 sm:px-6 lg:px-8">
       <div className="max-w-2xl mx-auto bg-base-100 rounded-xl shadow-md p-8">
         <h2 className="text-2xl font-bold text-primary mb-6">
           Complete Your Enrollment
