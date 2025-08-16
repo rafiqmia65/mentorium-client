@@ -6,39 +6,35 @@ import MentoriumLogo from "../MentoriumLogo/MentoriumLogo";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
-
   const navigate = useNavigate();
 
   const handleLogOut = () => {
     logOut()
       .then(() => {
         localStorage.removeItem("access-token");
-
         Swal.fire({
-          title: `You are successfully LogOut`,
-          text: "You clicked the button!",
+          title: `You are successfully logged out`,
           icon: "success",
         });
         navigate("/");
       })
       .catch((error) => {
-        const errorMessage = error.message;
         Swal.fire({
           icon: "error",
           title: "Oops...",
-          text: errorMessage,
-          footer: '<a href="#">Why do I have this issue?</a>',
+          text: error.message,
         });
       });
   };
 
+  // Navbar links
   const links = (
     <>
       <li>
         <NavLink
           to="/"
           className={({ isActive }) =>
-            isActive ? "text-primary font-bold" : ""
+            isActive ? "text-primary font-bold" : "text-text"
           }
         >
           Home
@@ -48,7 +44,7 @@ const Navbar = () => {
         <NavLink
           to="/allClasses"
           className={({ isActive }) =>
-            isActive ? "text-primary font-bold" : ""
+            isActive ? "text-primary font-bold" : "text-text"
           }
         >
           All Classes
@@ -58,7 +54,7 @@ const Navbar = () => {
         <NavLink
           to="/teach"
           className={({ isActive }) =>
-            isActive ? "text-primary font-bold" : ""
+            isActive ? "text-primary font-bold" : "text-text"
           }
         >
           Teach on Mentorium
@@ -69,7 +65,7 @@ const Navbar = () => {
           <NavLink
             to="/dashboard/profile"
             className={({ isActive }) =>
-              isActive ? "text-primary font-bold" : ""
+              isActive ? "text-primary font-bold" : "text-text"
             }
           >
             Dashboard
@@ -80,22 +76,30 @@ const Navbar = () => {
         <NavLink
           to="/aboutUs"
           className={({ isActive }) =>
-            isActive ? "text-primary font-bold" : ""
+            isActive ? "text-primary font-bold" : "text-text"
           }
         >
           About Us
         </NavLink>
       </li>
-      {!user && (
-        <div className="flex lg:hidden gap-2">
-          <Link className="btn bg-primary text-white" to="/login">
-            Login
-          </Link>
-          <Link className="btn bg-secondary text-white" to="/signUP">
-            Sign Up
-          </Link>
-        </div>
-      )}
+    </>
+  );
+
+  // Auth Buttons (Login / Sign Up)
+  const AuthButtons = (
+    <>
+      <Link
+        to="/login"
+        className="btn bg-secondary text-white w-full lg:w-auto hover:bg-secondary/80 transition-colors duration-300"
+      >
+        Login
+      </Link>
+      <Link
+        to="/signUP"
+        className="btn bg-secondary text-white w-full lg:w-auto hover:bg-secondary/80 transition-colors duration-300"
+      >
+        Sign Up
+      </Link>
     </>
   );
 
@@ -105,6 +109,7 @@ const Navbar = () => {
         <div className="navbar">
           {/* Navbar Start */}
           <div className="navbar-start">
+            {/* Mobile dropdown */}
             <div className="dropdown">
               <div
                 tabIndex={0}
@@ -131,9 +136,14 @@ const Navbar = () => {
                 className="menu menu-sm dropdown-content font-semibold mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
               >
                 {links}
+                {!user && (
+                  <div className="flex flex-col gap-2 mt-2">{AuthButtons}</div>
+                )}
               </ul>
             </div>
-            <MentoriumLogo></MentoriumLogo>
+            <a href="/">
+              <MentoriumLogo />
+            </a>
           </div>
 
           {/* Navbar Center (Desktop Menu) */}
@@ -144,7 +154,7 @@ const Navbar = () => {
           </div>
 
           {/* Navbar End */}
-          <div className="navbar-end gap-2">
+          <div className="navbar-end flex gap-2">
             <DarkLightMode />
             {user ? (
               <div className="dropdown dropdown-end">
@@ -173,14 +183,7 @@ const Navbar = () => {
                 </ul>
               </div>
             ) : (
-              <div className="hidden lg:flex gap-2">
-                <Link className="btn bg-primary text-white" to="/login">
-                  Login
-                </Link>
-                <Link className="btn bg-secondary text-white" to="/signUP">
-                  Sign Up
-                </Link>
-              </div>
+              <div className="hidden lg:flex gap-2">{AuthButtons}</div>
             )}
           </div>
         </div>

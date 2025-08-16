@@ -75,7 +75,7 @@ const Footer = () => {
         {/* Logo & Description */}
         <div>
           <MentoriumLogo></MentoriumLogo>
-          <p className="text-sm text-text mt-3">
+          <p className="text-base text-text mt-3">
             Empowering your learning journey with expert instructors and
             flexible courses.
           </p>
@@ -117,7 +117,7 @@ const Footer = () => {
               target="_blank"
               rel="noreferrer"
               aria-label="Facebook"
-              className="hover:text-accent transition"
+              className="hover:text-secondary/80 transition"
             >
               <FaFacebookF size={20} />
             </a>
@@ -126,7 +126,7 @@ const Footer = () => {
               target="_blank"
               rel="noreferrer"
               aria-label="Twitter"
-              className="hover:text-accent transition"
+              className="hover:text-secondary/80 transition"
             >
               <FaTwitter size={20} />
             </a>
@@ -135,7 +135,7 @@ const Footer = () => {
               target="_blank"
               rel="noreferrer"
               aria-label="LinkedIn"
-              className="hover:text-accent transition"
+              className="hover:text-secondary/80 transition"
             >
               <FaLinkedinIn size={20} />
             </a>
@@ -144,7 +144,7 @@ const Footer = () => {
               target="_blank"
               rel="noreferrer"
               aria-label="Instagram"
-              className="hover:text-accent transition"
+              className="hover:text-secondary/80 transition"
             >
               <FaInstagram size={20} />
             </a>
@@ -153,7 +153,7 @@ const Footer = () => {
       </div>
 
       {/* Copyright */}
-      <div className="text-center text-text-secondary text-sm mt-10">
+      <div className="text-center text-text text-lg mt-10">
         &copy; {new Date().getFullYear()}{" "}
         <span className="text-primary font-medium">Mentorium</span>. All rights
         reserved.

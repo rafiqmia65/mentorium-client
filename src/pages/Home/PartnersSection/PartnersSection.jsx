@@ -23,9 +23,9 @@ const PartnersSection = () => {
   ];
 
   return (
-    <section className="py-16 px-4 bg-base-100 overflow-hidden">
-      <div className="max-w-5xl mx-auto text-center">
-        <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
+    <section className="py-10 bg-neutral overflow-hidden">
+      <div className="max-w-5xl mx-auto px-4 lg:0 text-center">
+        <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">
           Our Global Partners
         </h2>
         <p className="text-lg text-text mb-12 max-w-2xl mx-auto">
@@ -36,7 +36,10 @@ const PartnersSection = () => {
         {/* Marquee Effect */}
         <Marquee speed={50} pauseOnHover={true} gradient={false}>
           {partners.map((partner) => (
-            <div key={partner.id} className="mx-8">
+            <div
+              key={partner.id}
+              className="mx-8 px-4 py-2 rounded-xl bg-base-100"
+            >
               <img
                 src={partner.logo}
                 alt={partner.name}
